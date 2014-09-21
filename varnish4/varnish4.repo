@@ -1,0 +1,5 @@
+[varnish-4.0]
+name=Varnish 4.0
+baseurl=http://repo.varnish-cache.org/redhat/varnish-4.0/el6/$basearch
+enabled=1
+gpgcheck=0
