@@ -1,7 +1,7 @@
 FROM centos:centos6
 MAINTAINER Libo Jiang <jianglibo@gmail.com>
 
-RUN yum -y install wget unzip vi telnet tar
+RUN yum -y install wget unzip vi telnet tar which
 
 ADD http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm /tmp/epel-release-6-8.noarch.rpm
 
