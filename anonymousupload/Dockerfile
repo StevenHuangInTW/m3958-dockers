@@ -42,7 +42,7 @@ ADD vert.x-2.1.2.zip /vert.x.2.1.2.zip
 RUN unzip /vert.x.2.1.2.zip
 
 ADD runvertx.sh /runvertx.sh
-RUN mod +x /runvertx.sh
+RUN chmod +x /runvertx.sh
 
 EXPOSE 22 80
 
