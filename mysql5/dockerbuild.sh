@@ -1,3 +1,3 @@
 # how to build this docker container
 
-docker build -t xxx/xxx .
+docker build -t m3958/mysql5 .
