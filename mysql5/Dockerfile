@@ -35,6 +35,6 @@ ADD my.cnf /etc/my.cnf
 
 ADD runmysqld.sh /runmysqld.sh
 
-RUN chomd +x /runmysqld.sh
+RUN chmod +x /runmysqld.sh
 
 EXPOSE 22 3306
