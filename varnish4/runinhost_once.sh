@@ -8,6 +8,7 @@ if [ ! -d $tdir ]; then
   cp supervisord.conf  $tdir
 
   cp varnish.config $tdir
+  cp default.vcl $tdir
 
   cp addn-hosts $tdir
   cp dnsmasq.conf $tdir
