@@ -33,7 +33,7 @@ RUN yum -y install mysql-server
 
 ADD my.cnf /etc/my.cnf
 
-ADD runmysql.sh /runmysqld.sh
+ADD runmysqld.sh /runmysqld.sh
 
 RUN chomd +x /runmysqld.sh
 
