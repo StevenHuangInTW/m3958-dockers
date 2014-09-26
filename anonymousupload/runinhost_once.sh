@@ -3,6 +3,8 @@
 tdir=/opt/dockerdata/anonymousupload
 
 if [ ! -d $tdir ]; then
+  mkdir -p "$tdir/data"
+
   mkdir -p "$tdir/log/mongodb"
   mkdir -p "$tdir/mongodb"
 
