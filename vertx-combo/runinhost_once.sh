@@ -2,7 +2,9 @@
 
 tdir=/opt/dockerdata/vertxcombo
 
+
 if [ ! -d $tdir ]; then
+  mkdir -p "$tdir/static"
   mkdir -p "$tdir/log/mongodb"
   mkdir -p "$tdir/mongodb"
 
@@ -12,6 +14,8 @@ if [ ! -d $tdir ]; then
   cp supervisord.conf  $tdir
   cp redis.conf $tdir
   cp mongodb.conf $tdir
+
+  cp conf.json $tdir
 
   cp addn-hosts $tdir
   cp dnsmasq.conf $tdir
