@@ -17,4 +17,6 @@ if [ ! -d $tdir ]; then
   cp dnsmasq.conf $tdir
 
   cp anonymousupload-0.0.5-mod.zip $tdir
+else
+  echo "$tdir already exist."
 fi

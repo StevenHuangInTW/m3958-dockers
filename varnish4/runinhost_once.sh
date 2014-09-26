@@ -12,4 +12,6 @@ if [ ! -d $tdir ]; then
 
   cp addn-hosts $tdir
   cp dnsmasq.conf $tdir
+else
+  echo "$tdir already exist."
 fi

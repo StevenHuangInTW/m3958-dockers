@@ -18,5 +18,6 @@ if [ ! -d $tdir ]; then
     tar -zxf mysqllib.5173.tar.gz
     rm -rf mysqllib.5173.tar.gz
   fi
-
+else
+  echo "$tdir already exist."
 fi

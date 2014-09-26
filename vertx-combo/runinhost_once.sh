@@ -21,4 +21,6 @@ if [ ! -d $tdir ]; then
   cp dnsmasq.conf $tdir
 
   cp vertxcombo-0.0.3-mod.zip $tdir
+else
+  echo "$tdir already exist."
 fi
