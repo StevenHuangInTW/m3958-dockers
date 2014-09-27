@@ -7,7 +7,7 @@ RUN curl -O http://mirrors.cnnic.cn/apache/lucene/solr/4.10.0/solr-4.10.0.tgz
 
 RUN tar -zxf solr-4.10.0.tgz
 RUN rm -f solr-4.10.0.tgz
-RUN mv /solr-4.10.0/example/multicore /solr-4.10.0/example/multicorebak
+RUN mv /solr-4.10.0/example/solr /solr-4.10.0/example/solrbak
 
 ADD runsolr.sh /runsolr.sh
 RUN chmod +x /runsolr.sh
