@@ -43,11 +43,14 @@ RUN tar -zxf solr-4.10.0.tgz
 RUN rm -f solr-4.10.0.tgz
 RUN mv /solr-4.10.0/example/multicore /solr-4.10.0/example/multicorebak
 
+ADD runsolr.sh /runsolr.sh
+RUN chomd +x /runsolr.sh
+
 #RUN curl -O http://central.maven.org/maven2/org/apache/lucene/lucene-analyzers-common/4.10.0/lucene-analyzers-common-4.10.0.jar
 
 #RUN cp lucene-analyzers-common-4.10.0.jar /solr-4.10.0/example/solr/lib
 
 #CMD /usr/bin/java -Dsolr.solr.home=/solr-4.10.0/example/multicore /solr-4.10.0/example/start.jar
 
-EXPOSE 22 80
+EXPOSE 22 8983
 
