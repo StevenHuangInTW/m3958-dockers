@@ -1,5 +1,5 @@
 {
-    "comboDiskRoot" : "/opt/runnigdir/static",
+    "comboDiskRoot" : "/opt/runningdir/static",
     "syncRead" : false,
     "maxMem" : 67108864,
     "defaultMaxAge" : 600,

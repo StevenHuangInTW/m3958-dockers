@@ -1,5 +1,3 @@
 #!/bin/bash
 
-docker run --privileged=true --rm -it -v /opt/dockerdata/varnish4:/opt/runningdir m3958/varnish4 /bin/bash
-
-#--privileged=true
+docker run --rm -it --link=vertxanonymous:vertxanonymous --link=vertxcombo:vertxcombo -v /opt/dockerdata/varnish4:/opt/runningdir m3958/varnish4 /bin/bash
