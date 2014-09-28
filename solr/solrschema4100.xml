@@ -1115,7 +1115,6 @@
 			<filter class="solr.StopFilterFactory" ignoreCase="true" words="org/apache/lucene/analysis/cn/smart/stopwords.txt" />
 			<filter class="solr.LowerCaseFilterFactory" />
 			<filter class="solr.RemoveDuplicatesTokenFilterFactory" />
-			<filter class="solr.PositionFilterFactory" />
 		</analyzer>
 	</fieldType>
 
@@ -1137,6 +1136,8 @@
 	<field name="createdAt" type="date" indexed="true" stored="true" />
 	<field name="publishedAt" type="date" indexed="true" stored="true" />
 	<field name="author" type="string" indexed="true" stored="true" />
+
+  <field name="text" type="text_general" indexed="true" stored="false" multiValued="true"/>
 
 	<uniqueKey>uniqueKey</uniqueKey>
 

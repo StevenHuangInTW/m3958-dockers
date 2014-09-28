@@ -6,6 +6,7 @@ if [ ! -d $tdir ]; then
   mkdir -p $tdir
 
   cp -R solr $tdir
+
   mkdir -p "$tdir/log/mongodb"
   mkdir -p "$tdir/mongodb"
 

@@ -7,6 +7,9 @@ ADD solr-4.10.0.tgz /
 
 RUN mv /solr-4.10.0/example/solr /solr-4.10.0/example/solrbak
 
+RUN mkdir /sharedLib
+RUN cp /solr-4.10.0/contrib/analysis-extras/lucene-libs/* /sharedLib
+
 ADD runsolr.sh /runsolr.sh
 RUN chmod +x /runsolr.sh
 
