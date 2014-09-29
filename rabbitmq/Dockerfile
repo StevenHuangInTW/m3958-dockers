@@ -7,7 +7,9 @@ RUN curl -O http://www.rabbitmq.com/releases/rabbitmq-server/v3.3.5/rabbitmq-ser
 
 RUN rpm --import http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
 
-RUN yum -y install rabbitmq-server-3.3.5-1.noarch.rpm
+RUN rpm -ivh rabbitmq-server-3.3.5-1.noarch.rpm
+
+ADD rabbitmq-env.conf /etc/rabbitmq/
 
 EXPOSE 22 5672
 
