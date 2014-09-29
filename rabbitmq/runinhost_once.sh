@@ -4,6 +4,8 @@ tdir=/opt/dockerdata/rabbitmq
 
 if [ ! -d $tdir ]; then
   mkdir -p $tdir
+  mkdir "$tdir/rabbitmqbase"
+  mkdir "$tdir/rabbitmqlogs"
 
   cp rabbitmq.config $tdir
 

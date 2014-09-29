@@ -7,9 +7,12 @@ RUN curl -O http://www.rabbitmq.com/releases/rabbitmq-server/v3.3.5/rabbitmq-ser
 
 RUN rpm --import http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
 
-RUN rpm -ivh rabbitmq-server-3.3.5-1.noarch.rpm
+RUN yum -y install rabbitmq-server-3.3.5-1.noarch.rpm
 
 ADD rabbitmq-env.conf /etc/rabbitmq/
+ADD runrabbitmq.sh /
+
+RUN chmod +x /runrabbitmq.sh
 
 EXPOSE 22 5672
 
