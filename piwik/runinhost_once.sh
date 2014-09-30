@@ -1,6 +1,6 @@
 #/bin/bash
 
-tdir=/opt/dockerdata/xxxx
+tdir=/opt/dockerdata/piwik
 
 if [ ! -d $tdir ]; then
   mkdir -p $tdir
