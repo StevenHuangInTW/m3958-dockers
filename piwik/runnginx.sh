@@ -1,3 +1,5 @@
 #!/bin/bash
 
-echo hello
+
+NGINX=/usr/sbin/nginx
+CONFFILE=/etc/nginx/nginx.conf
