@@ -1,0 +1,59 @@
+#
+#
+# 
+# function can only return number.
+#
+
+TEXTDOMAIN=initscripts
+
+# Make sure umask is sane
+umask 022
+
+# Set up a default search path.
+PATH="/sbin:/usr/sbin:/bin:/usr/bin"
+export PATH
+
+
+image_exist () {
+  local s
+  s=$(docker images |grep $1)
+  if [ -z "${s}" ] ; then
+    echo "no"
+  else
+    echo "yes"
+  fi
+}
+
+container_exist () {
+  local s
+  s=$(docker ps -a|grep $1)
+  if [ -z "${s}" ] ; then
+    echo "no"
+  else
+    echo "yes"
+  fi
+}
+
+container_running () {
+  local s=$(docker ps |grep $1)
+  if [ -z "${s}" ] ; then
+    echo "no"
+  else
+    echo "yes"
+  fi
+}
+
+#CentOS Linux release 7.0.1406 (Core) 
+
+os_version () {
+  echo $(cat /etc/redhat-release|sed 's/^[^0-9]*//'|sed 's/^\([0-9]\).*$/\1/')  
+}
+
+privilegedstr () {
+  local v=$(os_version)
+  if [ $v = "7" ] ;then
+    echo "--privileged=true"
+  else
+    echo ""
+  fi
+}

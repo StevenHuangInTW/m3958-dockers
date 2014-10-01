@@ -1,0 +1,5 @@
+CONTAINER_NAME=piwikapp
+DIR_MAP="-v /opt/dockerdata/piwik/app:/opt/runningdir"
+PORT_MAP="-p 8081:80"
+IMG_NAME="m3958/piwikapp"
+HOST_DIR="/opt/dockerdata/piwik/app"

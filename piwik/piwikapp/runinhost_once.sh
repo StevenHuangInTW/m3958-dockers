@@ -1,12 +1,18 @@
 #/bin/bash
 
-tdir=/opt/dockerdata/piwik
+. containerinfo
+
+tdir=${HOST_DIR}
 
 if [ ! -d $tdir ]; then
   mkdir -p $tdir
+  mkdir -p $tdir/nginxlog
+  mkdir -p $tdir/php-fpmlog
+
+  cp -R nginx $tdir
+
+  cp -R php-fpm $tdir
   cp supervisord.conf  $tdir
-  cp redis.conf $tdir
-  cp mongodb.conf $tdir
 
   cp addn-hosts $tdir
   cp dnsmasq.conf $tdir
