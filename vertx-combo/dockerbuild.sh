@@ -1,1 +1,5 @@
-docker build -t m3958/vertxcombo .
+#!/bin/bash
+
+. containerinfo
+
+docker build -t ${IMG_NAME} .

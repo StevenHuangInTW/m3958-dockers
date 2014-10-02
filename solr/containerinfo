@@ -1,0 +1,5 @@
+CONTAINER_NAME=solr
+DIR_MAP="-v /opt/dockerdata/solr:/opt/runningdir -v /opt/dockerdata/solr/solr:/solr-4.10.0/example/solr"
+PORT_MAP="-p 8983:8983"
+IMG_NAME="m3958/solr"
+HOST_DIR="/opt/dockerdata/solr"

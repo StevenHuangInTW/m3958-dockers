@@ -1,0 +1,5 @@
+CONTAINER_NAME=vertxcombo
+DIR_MAP="-v /opt/dockerdata/vertxcombo:/opt/runningdir"
+PORT_MAP="-p 8093:8093"
+IMG_NAME="m3958/vertxcombo"
+HOST_DIR="/opt/dockerdata/vertxcombo"

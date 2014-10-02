@@ -1,3 +1,11 @@
 #!/bin/bash
 
-docker run --rm -it -v /opt/dockerdata/vertxcombo:/opt/runningdir m3958/vertxcombo /bin/bash
+. containerinfo
+. ../functions
+
+docker run --rm -it \
+    $(privilegedstr) \
+    ${DIR_MAP} \
+    -v /root/m3958-dockers:/m3958-dockers \
+    ${IMG_NAME} \
+    /bin/bash

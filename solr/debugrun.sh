@@ -1,3 +1,11 @@
 #!/bin/bash
 
-docker run --rm -it -v /opt/dockerdata/solr:/opt/runningdir -v /opt/dockerdata/solr/solr:/solr-4.10.0/example/solr m3958/solr /bin/bash
+. containerinfo
+. ../functions
+
+docker run --rm -it \
+    $(privilegedstr) \
+    ${DIR_MAP} \
+    -v /root/m3958-dockers:/m3958-dockers \
+    ${IMG_NAME} \
+    /bin/bash

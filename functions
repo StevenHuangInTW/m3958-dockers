@@ -1,6 +1,6 @@
 #
 #
-# 
+#
 # function can only return number.
 #
 
@@ -43,10 +43,10 @@ container_running () {
   fi
 }
 
-#CentOS Linux release 7.0.1406 (Core) 
+#CentOS Linux release 7.0.1406 (Core)
 
 os_version () {
-  echo $(cat /etc/redhat-release|sed 's/^[^0-9]*//'|sed 's/^\([0-9]\).*$/\1/')  
+  echo $(cat /etc/redhat-release|sed 's/^[^0-9]*//'|sed 's/^\([0-9]\).*$/\1/')
 }
 
 privilegedstr () {
@@ -56,4 +56,42 @@ privilegedstr () {
   else
     echo ""
   fi
+}
+
+find_common () {
+  local compath="../commons"
+  local fn
+  if [ ! -d $compath ]; then
+    compath="../../commons"
+  fi
+
+  if [ ! -d $compath ]; then
+    echo ""
+  else
+    fn="$compath/tocontainer/$1"
+    if [ -f $fn ]; then
+      echo $fn
+    else
+      fn="$compath/tohostdir/$1"
+      if [ -f $fn]; then
+        echo $fn
+      fi
+    fi
+  fi
+}
+
+copy_commons () {
+  local fn
+  for f in "$@" ; do
+    if [ ! -e $f ] ;then
+      fn=$(find_common $f)
+      if [ ! -z $fn]; then
+        copy $fn ./
+      fi
+    fi
+  done
+}
+
+copy_tocontainer () {
+  copy_commons "runsshd.sh" "set_root_pw.sh"
 }

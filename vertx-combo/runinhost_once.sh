@@ -1,6 +1,8 @@
 #/bin/bash
 
-tdir=/opt/dockerdata/vertxcombo
+. containerinfo
+
+tdir=${HOST_DIR}
 
 
 if [ ! -d $tdir ]; then

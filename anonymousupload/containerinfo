@@ -1,0 +1,5 @@
+CONTAINER_NAME=anonymousupload
+DIR_MAP="-v /opt/dockerdata/anonymousupload:/opt/runningdir"
+PORT_MAP="-p 8999:80"
+IMG_NAME="m3958/anonymousupload"
+HOST_DIR="/opt/dockerdata/anonymousupload"

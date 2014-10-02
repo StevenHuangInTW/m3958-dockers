@@ -1,3 +1,11 @@
 #!/bin/bash
 
-docker run --rm -it -v /opt/dockerdata/mysql5:/opt/runningdir m3958/mysql5 /bin/bash
+. containerinfo
+. ../functions
+
+docker run --rm -it \
+    $(privilegedstr) \
+    ${DIR_MAP} \
+    -v /root/m3958-dockers:/m3958-dockers \
+    ${IMG_NAME} \
+    /bin/bash

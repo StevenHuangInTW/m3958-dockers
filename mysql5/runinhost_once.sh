@@ -1,6 +1,8 @@
 #/bin/bash
 
-tdir=/opt/dockerdata/mysql5
+. containerinfo
+
+tdir=${HOST_DIR}
 
 if [ ! -d $tdir ]; then
 
@@ -12,12 +14,6 @@ if [ ! -d $tdir ]; then
   cp addn-hosts $tdir
   cp dnsmasq.conf $tdir
 
-  if [ ! -d "$tdir/mysql" ]; then
-    cp mysqllib.5173.tar.gz $tdir
-    cd $tdir
-    tar -zxf mysqllib.5173.tar.gz
-    rm -rf mysqllib.5173.tar.gz
-  fi
 else
   echo "$tdir already exist."
 fi

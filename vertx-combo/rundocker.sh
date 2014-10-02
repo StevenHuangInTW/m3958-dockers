@@ -1,3 +1,12 @@
 #!/bin/bash
 
-docker run -p 8093:8093 -d --name vertxcombo -v /opt/dockerdata/vertxcombo:/opt/runningdir m3958/vertxcombo
+. ../functions
+
+. containerinfo
+
+docker run -d \
+    --name ${CONTAINER_NAME} \
+    $(privilegedstr) \
+    ${PORT_MAP} \
+    ${DIR_MAP} \
+    ${IMG_NAME}

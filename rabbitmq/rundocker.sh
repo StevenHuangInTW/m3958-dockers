@@ -1,3 +1,12 @@
 #!/bin/bash
 
-docker run -p 5672:5672 -p 15672:15672 -d --name rabbitmq --hostname=rabbitmqhostone -v /opt/dockerdata/rabbitmq:/opt/runningdir m3958/rabbitmq /runrabbitmq.sh
+. ../functions
+
+. containerinfo
+
+docker run -d \
+    --name ${CONTAINER_NAME} \
+    $(privilegedstr) \
+    ${PORT_MAP} \
+    ${DIR_MAP} \
+    ${IMG_NAME}

@@ -1,0 +1,5 @@
+CONTAINER_NAME=varnish4
+DIR_MAP="-v /opt/dockerdata/varnish4:/opt/runningdir"
+PORT_MAP="-p 80:80"
+IMG_NAME="m3958/varnish4"
+HOST_DIR="/opt/dockerdata/varnish4"

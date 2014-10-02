@@ -1,3 +1,8 @@
 # how to build this docker container
 
-docker build -t m3958/base .
+. containerinfo
+. ../functions
+
+copy_tocontainer
+exit 1
+docker build -t ${IMG_NAME} .

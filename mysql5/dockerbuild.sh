@@ -1,3 +1,5 @@
 # how to build this docker container
 
-docker build -t m3958/mysql5 .
+.containerinfo
+
+docker build -t ${IMG_NAME} .

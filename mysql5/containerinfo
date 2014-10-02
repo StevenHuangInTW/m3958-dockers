@@ -1,0 +1,5 @@
+CONTAINER_NAME=mysql5
+DIR_MAP="-v /opt/dockerdata/mysql5:/opt/runningdir"
+PORT_MAP="-p 127.0.0.1:3306:3306"
+IMG_NAME="m3958/mysql5"
+HOST_DIR="/opt/dockerdata/mysql5"

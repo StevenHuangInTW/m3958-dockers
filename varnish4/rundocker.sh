@@ -1,3 +1,12 @@
 #!/bin/bash
 
-docker run -p 80:80 -d --name varnish4 -v /opt/dockerdata/varnish4:/opt/runningdir m3958/varnish4
+. ../functions
+
+. containerinfo
+
+docker run -d \
+    --name ${CONTAINER_NAME} \
+    $(privilegedstr) \
+    ${PORT_MAP} \
+    ${DIR_MAP} \
+    ${IMG_NAME}
