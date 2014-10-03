@@ -1,5 +1,5 @@
 # how to build this docker container
 
-.containerinfo
+. containerinfo
 
 docker build -t ${IMG_NAME} .

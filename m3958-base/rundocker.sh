@@ -1,3 +1,6 @@
 #!/bin/bash
+. containerinfo
 
-docker run --rm -it m3958/base /bin/bash
+docker run --rm -it \
+    ${IMG_NAME} \
+    /bin/bash
