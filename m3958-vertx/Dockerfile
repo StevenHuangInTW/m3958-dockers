@@ -1,4 +1,4 @@
-FROM m3958/base
+FROM m3958/base:201401
 
 MAINTAINER Libo Jiang <jianglibo@gmail.com>
 

@@ -18,5 +18,7 @@ app="${rdr}/app"
 if [ ! -e "${app}" ]; then
   mkdir -p ${app}
   cp /vertxcombo.conf.json "${app}"
+  mkdir "${app}/static"
+  echo "hello vertxcombo" > "${app}/static/index.js"
 fi
 

@@ -1,5 +1,5 @@
 {
-    "comboDiskRoot" : "/opt/runningdir/static",
+    "comboDiskRoot" : "/opt/runningdir/vertxcombo/app/static",
     "syncRead" : false,
     "maxMem" : 67108864,
     "defaultMaxAge" : 600,

@@ -8,7 +8,7 @@ ssconf=/opt/runningdir/supervisor.d/supervisord.conf
 
 if [ -z $(cat ${ssconf}|grep "program:anonymousupload") ]; then
   echo "[program:anonymousupload]" >> $ssconf
-  echo "command=/anonymousuploadrun.sh" >> $ssconf
+  echo "command=/anonymousupload_run.sh" >> $ssconf
 fi
 
 rdr=/opt/runningdir

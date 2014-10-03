@@ -1,8 +1,8 @@
 FROM m3958/vertxbase:212
 MAINTAINER Libo Jiang <jianglibo@gmail.com>
 
-ADD anonymousuploadrun.sh /
-RUN chmod +x /anonymousuploadrun.sh
+ADD anonymousupload_run.sh /
+RUN chmod +x /anonymousupload_run.sh
 ADD anonymousupload-0.0.5-mod.zip /
 ADD conf.json /anonymousupload.conf.json
 ADD anonymousupload_initrun.sh  /util/
