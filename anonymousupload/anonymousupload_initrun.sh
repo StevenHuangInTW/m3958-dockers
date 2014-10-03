@@ -16,7 +16,7 @@ vertxdir="${rdr}/anonymousupload"
 
 if [ ! -e "${vertxdir}" ]; then
   mkdir -p ${vertxdir}
-  cp /conf.json ${vertxdir}
+  cp /anonymousupload.conf.json "${vertxdir}"
 fi
 
 

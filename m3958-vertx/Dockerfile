@@ -12,6 +12,6 @@ RUN unzip /vert.x.2.1.2.zip
 
 ADD mongodb.conf /cfgdir/
 ADD redis.conf /cfgdir/
-ADD vertxinitrun.sh /util/
+ADD vertx_initrun.sh /util/
 
-RUN chmod +x /util/vertxinitrun.sh
+RUN chmod +x /util/vertx_initrun.sh

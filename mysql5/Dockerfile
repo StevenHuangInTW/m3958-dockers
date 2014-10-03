@@ -5,10 +5,10 @@ RUN yum -y install mysql-server
 
 ADD my.cnf /etc/my.cnf
 
-ADD mysqldrun.sh /util/
-ADD mysqlinitrun.sh /util/
+ADD mysqld_run.sh /util/
+ADD mysqld_initrun.sh /util/
 
-RUN chmod +x /util/mysqldrun.sh
-RUN chmod +x /util/mysqlinitrun.sh
+RUN chmod +x /util/mysqld_run.sh
+RUN chmod +x /util/mysqld_initrun.sh
 
 EXPOSE 3306

@@ -9,4 +9,4 @@ docker run --rm -it \
     ${DIR_MAP} \
     -v /root/m3958-dockers:/m3958-dockers \
     ${IMG_NAME} \
-    /util/sshinitrun.sh
+    /util/sshd_initrun.sh

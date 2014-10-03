@@ -4,7 +4,7 @@ MAINTAINER Libo Jiang <jianglibo@gmail.com>
 ADD anonymousuploadrun.sh /
 RUN chmod +x /anonymousuploadrun.sh
 ADD anonymousupload-0.0.5-mod.zip /
-ADD conf.json /
+ADD conf.json /anonymousupload.conf.json
 ADD anonymousupload_initrun.sh  /util/
 
 RUN chmod +x /util/anonymousupload_initrun.sh

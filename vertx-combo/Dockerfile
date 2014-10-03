@@ -1,11 +1,13 @@
-FROM m3958/vertx
-
+FROM m3958/vertxbase:212
 MAINTAINER Libo Jiang <jianglibo@gmail.com>
 
-RUN ssh-keygen -q -N "" -t dsa -f /etc/ssh/ssh_host_dsa_key && ssh-keygen -q -N "" -t rsa -f /etc/ssh/ssh_host_rsa_key && sed -i "s/#UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config && sed -i "s/UsePAM.*/UsePAM no/g" /etc/ssh/sshd_config
+ADD vertxcomborun.sh /
+RUN chmod +x /vertxcomborun.sh
+ADD vertxcombo-0.0.3-mod.zip /
+ADD conf.json /vertxcombo.conf.json
+ADD vertxcombo_initrun.sh  /util/
 
-ADD runvertx.sh /runvertx.sh
-RUN chmod +x /runvertx.sh
+RUN chmod +x /util/vertxcombo_initrun.sh
 
-EXPOSE 22 80
+EXPOSE 80
 
