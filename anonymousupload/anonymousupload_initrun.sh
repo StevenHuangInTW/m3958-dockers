@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#because m3958/base alreay put baseinitrun.sh in /util/ folder.
+#because m3958/base alreay put base_initrun.sh in /util/ folder.
 
 /util/vertxinitrun.sh
 

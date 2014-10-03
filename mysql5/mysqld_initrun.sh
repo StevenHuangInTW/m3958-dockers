@@ -1,8 +1,8 @@
 #!/bin/bash
 
-#because m3958/base alreay put baseinitrun.sh in /util/ folder.
+#because m3958/base alreay put base_initrun.sh in /util/ folder.
 
-/util/baseinit_run.sh
+/util/base_initrun.sh
 
 ssconf=/opt/runningdir/supervisor.d/supervisord.conf
 

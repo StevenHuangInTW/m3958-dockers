@@ -19,4 +19,3 @@ fi
 
 
 #curl -o http://mirrors.cnnic.cn/apache/lucene/solr/4.10.0/solr-4.10.0.tgz
-#curl -o http://central.maven.org/maven2/org/apache/lucene/lucene-analyzers-common/4.10.0/lucene-analyzers-common-4.10.0.jar
