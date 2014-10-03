@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /opt/runningdir/vertxcombo
+cd /opt/runningdir/vertxcombo/app
 
 export JAVA_HOME="/etc/alternatives/java_sdk_openjdk"
 

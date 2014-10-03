@@ -11,15 +11,17 @@ if [ -z $(cat ${ssconf}|grep "program:mysql5") ]; then
   echo "command=/util/mysqld_run.sh" >> $ssconf
 fi
 
-rdr=/opt/runningdir
+rdr=/opt/runningdir/mysql
+data="${rdr}/data"
+log="${rdr}/log"
 
-if [ ! -e "${rdr}/mysqldata" ]; then
-  mkdir "${rdr}/mysqldata"
-  chown -R mysql:mysql "${rdr}/mysqldata"
+if [ ! -e "$data" ]; then
+  mkdir -p "$data"
+  chown -R mysql:mysql "$data"
 fi
 
-if [ ! -e "${rdr}/mysqllog" ]; then
-  mkdir "${rdr}/mysqllog"
-  chown -R mysql:mysql "${rdr}/mysqllog"
+if [ ! -e "$log" ]; then
+  mkdir -p "$log"
+  chown -R mysql:mysql "$log"
 fi
 

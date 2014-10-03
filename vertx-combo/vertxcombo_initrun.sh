@@ -2,20 +2,21 @@
 
 #because m3958/base alreay put base_initrun.sh in /util/ folder.
 
-/util/vertxinitrun.sh
+/util/vertx_initrun.sh
 
 ssconf=/opt/runningdir/supervisor.d/supervisord.conf
 
 if [ -z $(cat ${ssconf}|grep "program:vertxcombo") ]; then
   echo "[program:vertxcombo]" >> $ssconf
-  echo "command=/vertxcomborun.sh" >> $ssconf
+  echo "command=/vertxcombo_run.sh" >> $ssconf
 fi
 
-rdr=/opt/runningdir
-vertxdir="${rdr}/vertxcombo"
+rdr=/opt/runningdir/vertxcombo
 
-if [ ! -e "${vertxdir}" ]; then
-  mkdir -p ${vertxdir}
-  cp /vertxcombo.conf.json "${vertxdir}"
+app="${rdr}/app"
+
+if [ ! -e "${app}" ]; then
+  mkdir -p ${app}
+  cp /vertxcombo.conf.json "${app}"
 fi
 

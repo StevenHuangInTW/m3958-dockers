@@ -1,7 +1,7 @@
 #!/bin/bash
 
-datadir=/opt/runningdir/mysqldata
-logdir=/opt/runningdir/mysqllog
+datadir=/opt/runningdir/mysql/data
+logdir=/opt/runningdir/mysql/log
 
 duser=$(stat -c %U ${datadir})
 
