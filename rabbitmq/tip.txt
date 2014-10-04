@@ -1,0 +1,3 @@
+debugrun into container.
+
+run rabbitmqctl.

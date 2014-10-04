@@ -8,6 +8,6 @@ ssconf=/opt/runningdir/supervisor.d/supervisord.conf
 
 if [ -z $(cat ${ssconf}|grep "program:sshd") ]; then
   echo "[program:sshd]" >> $ssconf
-  echo "command=/util/runsshd.sh" >> $ssconf
+  echo "command=/util/sshd_run.sh" >> $ssconf
 fi
 

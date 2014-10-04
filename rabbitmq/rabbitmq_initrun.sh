@@ -15,6 +15,11 @@ rdr=/opt/runningdir/rabbitmq
 rbqbase="${rdr}/base"
 rbqlog="${rdr}/log"
 
+if [ ! -e "$rdr" ]; then
+  mkdir $rdr
+  cp /rabbitmq.config "${rdr}/"
+fi
+
 if [ ! -e "$rbqbase" ]; then
   mkdir -p "$rbqbase"
 fi
