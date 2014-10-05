@@ -6,25 +6,31 @@
 
 ssconf=/opt/runningdir/supervisor.d/supervisord.conf
 
-if [ -z $(cat ${ssconf}|grep "program:rabbitmq") ]; then
-  echo "[program:rabbitmq]" >> $ssconf
-  echo "command=/util/rabbitmq_run.sh" >> $ssconf
-fi
+pn=rabbitmq
+runner=/util/rabbitmq_run.sh
 
 rdr=/opt/runningdir/rabbitmq
-rbqbase="${rdr}/base"
-rbqlog="${rdr}/log"
+data="${rdr}/data"
+log="${rdr}/log"
+cfg="${rdr}/cfg"
 
-if [ ! -e "$rdr" ]; then
-  mkdir $rdr
-  cp /rabbitmq.config "${rdr}/"
+user=rabbitmq
+
+if [ -z $(cat ${ssconf}|grep "program:${pn}") ]; then
+  echo "[program:${pn}]" >> $ssconf
+  echo "command=${runner}" >> $ssconf
 fi
 
-if [ ! -e "$rbqbase" ]; then
-  mkdir -p "$rbqbase"
+if [ ! -e "$data" ]; then
+  mkdir -p "$data"
 fi
 
-if [ ! -e "$rbqlog" ]; then
-  mkdir -p "$rbqlog"
+if [ ! -e "$log" ]; then
+  mkdir -p "$log"
+fi
+
+if [ ! -e "$cfg" ]; then
+  mkdir -p "$cfg"
+  cp /rabbitmq.config "${cfg}/"
 fi
 

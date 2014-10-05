@@ -1,4 +1,4 @@
-FROM m3958/base
+FROM m3958/base:201401
 MAINTAINER Libo Jiang <jianglibo@gmail.com>
 
 RUN yum -y install erlang
@@ -9,9 +9,13 @@ RUN rpm --import http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
 RUN yum -y install rabbitmq-server-3.3.5-1.noarch.rpm
 
 ADD rabbitmq-env.conf /etc/rabbitmq/
-ADD rabbitmq_run.sh /util/
 
+ADD rabbitmq_run.sh /util/
 RUN chmod +x /util/rabbitmq_run.sh
+
+ADD rabbitmq_initrun.sh /util/
+RUN chmod +x /util/rabbitmq_initrun.sh
+
 
 ADD rabbitmq.config /
 

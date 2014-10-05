@@ -5,20 +5,30 @@
 /util/base_initrun.sh
 
 ssconf=/opt/runningdir/supervisor.d/supervisord.conf
+pn=varnish4
+runner=/util/varnish4_run.sh
 
-if [ -z $(cat ${ssconf}|grep "program:varnish4") ]; then
-  echo "[program:varnish4]" >> $ssconf
-  echo "command=/util/varnish4_run.sh" >> $ssconf
-fi
+rdr=/opt/runningdir/varnish4
+data="${rdr}/data"
+log="${rdr}/log"
+cfg="${rdr}/cfg"
 
-rdr=/opt/runningdir
-
-vdir="${rdr}/varnish4"
-
-if [ ! -e "${vdir"} ]; then
-  mkdir "${vdir"}
-  cp /default.vcl ${vdir}
-  cp /varnish.config ${vdir}
+if [ -z $(cat ${ssconf}|grep "program:${pn}") ]; then
+  echo "[program:${pn}]" >> $ssconf
+  echo "command=${runner}" >> $ssconf
 fi
 
 
+if [ ! -e "$data" ]; then
+  mkdir -p "$data"
+fi
+
+if [ ! -e "$log" ]; then
+  mkdir -p "$log"
+fi
+
+if [ ! -e "$cfg" ]; then
+  mkdir -p "$cfg"
+  cp /default.vcl ${cfg}
+  cp /varnish.config ${cfg}
+fi

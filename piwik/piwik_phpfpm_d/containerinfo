@@ -1,5 +1,5 @@
-CONTAINER_NAME=php-fpm
-HOST_DIR="/opt/dockerdata/php-fpm"
+CONTAINER_NAME=piwik_phpfpm
+HOST_DIR=/opt/dockerdata/piwik
 HC_DIR="${HOST_DIR}/php-fpm/cfg"
 DIR_MAP="-v ${HOST_DIR}:/opt/runningdir -v ${HC_DIR}/php-fpm.conf:/etc/php-fpm.conf -v ${HC_DIR}/www.conf:/etc/php-fpm.d/www.conf -v ${HC_DIR}/php.ini:/etc/php.ini"
 DEBUG_DIR_MAP="-v ${HOST_DIR}:/opt/runningdir"

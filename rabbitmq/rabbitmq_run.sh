@@ -1,14 +1,17 @@
 #!/bin/bash
 
 trap "{ echo Stopping rabbitmq; rabbitmqctl stop; exit 0; }" EXIT
+rdr=/opt/runningdir/rabbitmq
 
-duser=$(stat -c %U /opt/runningdir)
+duser=$(stat -c %U "$rdr")
 
 if [ ! $duser = "rabbitmq" ]
 then
-  chown -R rabbitmq:rabbitmq /opt/runningdir
+  chown -R rabbitmq:rabbitmq $rdr
 fi
+
 /usr/sbin/rabbitmq-plugins enable rabbitmq_management
+
 echo "start rabbitmq..."
 exec /usr/sbin/rabbitmq-server
 echo "start rabbitmq done"

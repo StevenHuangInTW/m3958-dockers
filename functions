@@ -25,9 +25,13 @@ image_exist () {
 }
 
 container_exist () {
-  local s
-  s=$(docker ps -a|grep $1)
-  if [ -z "${s}" ] ; then
+  local cn=$1
+  if [ -z "$cn" ]; then
+    echo "no"
+    exit 0
+  fi
+
+  if [ -z "$(docker ps -a|grep [^/]${cn})" ] ; then
     echo "no"
   else
     echo "yes"
@@ -35,8 +39,12 @@ container_exist () {
 }
 
 container_running () {
-  local s=$(docker ps |grep $1)
-  if [ -z "${s}" ] ; then
+  local cn=$1
+  if [ -z "$cn" ]; then
+    echo "no"
+    exit 0
+  fi
+  if [ -z "$(docker ps |grep [^/]${cn})" ] ; then
     echo "no"
   else
     echo "yes"

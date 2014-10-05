@@ -2,19 +2,19 @@
 
 rdir=/opt/runningdir
 
-duser=$(stat -c %U $rdir/piwik)
+#duser=$(stat -c %U $rdir/piwik)
 
-if [ ! $duser = "apache" ]; then
-  chown -R apache:apache $rdir/piwik
-  chmod -R 0755 $rdir/piwik/tmp
-  chmod -R 0755 $rdir/piwik/tmp/assets/
-  chmod -R 0755 $rdir/piwik/tmp/cache/
-  chmod -R 0755 $rdir/piwik/tmp/logs/
-  chmod -R 0755 $rdir/piwik/tmp/tcpdf/
-  chmod -R 0755 $rdir/piwik/tmp/templates_c/
-fi
+#if [ ! $duser = "apache" ]; then
+#  chown -R apache:apache $rdir/piwik
+#  chmod -R 0755 $rdir/piwik/tmp
+#  chmod -R 0755 $rdir/piwik/tmp/assets/
+#  chmod -R 0755 $rdir/piwik/tmp/cache/
+#  chmod -R 0755 $rdir/piwik/tmp/logs/
+#  chmod -R 0755 $rdir/piwik/tmp/tcpdf/
+#  chmod -R 0755 $rdir/piwik/tmp/templates_c/
+#fi
 
-exec /usr/sbin/php-fpm -y $rdir/php-fpm/php-fpm.conf -c $rdir/php-fpm/php.ini -F
+exec /usr/sbin/php-fpm -F
 
 #Usage: php [-n] [-e] [-h] [-i] [-m] [-v] [-t] [-p <prefix>] [-g <pid>] [-c <file>] [-d foo[=bar]] [-y <file>] [-D] [-F]
 #  -c <path>|<file> Look for php.ini file in this directory

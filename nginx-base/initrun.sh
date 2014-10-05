@@ -1,8 +1,7 @@
 #!/bin/bash
 
-. "$(dirname ${BASH_SOURCE[0]})/containerinfo"
-. "$(dirname ${BASH_SOURCE[0]})/../functions"
-
+. containerinfo
+. ../functions
 echo $(privilegedstr)
 
 docker run --rm -it \
@@ -10,4 +9,4 @@ docker run --rm -it \
     ${DEBUG_DIR_MAP} \
     -v /root/m3958-dockers:/m3958-dockers \
     ${IMG_NAME} \
-    ${INIT_RUNNER}
+    /util/nginx_initrun.sh

@@ -1,5 +1,0 @@
-CONTAINER_NAME=nginx
-DIR_MAP="-v /opt/dockerdata/nginx:/opt/runningdir"
-PORT_MAP="-p 8080:80"
-IMG_NAME="m3958/nginx"
-HOST_DIR="/opt/dockerdata/nginx"

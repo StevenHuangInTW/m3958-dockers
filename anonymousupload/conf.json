@@ -1,5 +1,5 @@
   {
-    "asset_root": "/opt/runningdir/data",
+    "asset_root": "/opt/runningdir/anonymousupload/data",
     "index_page": "index.html",
     "host": "0.0.0.0",
     "port": 80,
