@@ -1,5 +1,11 @@
-CONTAINER_NAME=php-fpm
-HOST_DIR="/opt/dockerdata/php-fpm"
+if [ -z $CONTAINER_NAME ]; then
+  CONTAINER_NAME=php-fpm
+fi
+
+if [ -z $HOST_DIR ]; then
+  HOST_DIR="/opt/dockerdata/php-fpm"
+fi
+
 HC_DIR="${HOST_DIR}/php-fpm/cfg"
 DIR_MAP="-v ${HOST_DIR}:/opt/runningdir -v ${HC_DIR}/php-fpm.conf:/etc/php-fpm.conf -v ${HC_DIR}/www.conf:/etc/php-fpm.d/www.conf -v ${HC_DIR}/php.ini:/etc/php.ini"
 DEBUG_DIR_MAP="-v ${HOST_DIR}:/opt/runningdir"

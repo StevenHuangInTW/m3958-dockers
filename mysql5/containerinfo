@@ -1,5 +1,10 @@
-CONTAINER_NAME=mysql5
-HOST_DIR="/opt/dockerdata/mysql5"
+if [ -z $CONTAINER_NAME ]; then
+  CONTAINER_NAME=mysql5
+fi
+
+if [ -z $HOST_DIR ]; then
+  HOST_DIR="/opt/dockerdata/mysql5"
+fi
 
 DIR_MAP="-v ${HOST_DIR}:/opt/runningdir -v ${HOST_DIR}/mysql/cfg/my.cnf:/etc/my.cnf"
 DEBUG_DIR_MAP="-v ${HOST_DIR}:/opt/runningdir"

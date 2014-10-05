@@ -1,5 +1,10 @@
-HOST_DIR="/opt/dockerdata/nginx"
-CONTAINER_NAME=nginx
+if [ -z $CONTAINER_NAME ]; then
+  CONTAINER_NAME=nginx
+fi
+
+if [ -z $HOST_DIR ]; then
+  HOST_DIR="/opt/dockerdata/nginx"
+fi
 DIR_MAP="-v ${HOST_DIR}:/opt/runningdir -v ${HOST_DIR}/nginx/cfg/nginx.conf:/etc/nginx/nginx.conf -v ${HOST_DIR}/nginx/cfg/nginx_default.conf:/etc/nginx/conf.d/default.conf"
 DEBUG_DIR_MAP="-v ${HOST_DIR}:/opt/runningdir"
 PORT_MAP="-p 8080:80"
