@@ -1,8 +1,0 @@
-CONTAINER_NAME=piwik_phpfpm
-HOST_DIR=/opt/dockerdata/piwik
-HC_DIR="${HOST_DIR}/php-fpm/cfg"
-DIR_MAP="-v ${HOST_DIR}:/opt/runningdir -v ${HC_DIR}/php-fpm.conf:/etc/php-fpm.conf -v ${HC_DIR}/www.conf:/etc/php-fpm.d/www.conf -v ${HC_DIR}/php.ini:/etc/php.ini"
-DEBUG_DIR_MAP="-v ${HOST_DIR}:/opt/runningdir"
-PORT_MAP="-p 9000:9000"
-IMG_NAME="m3958/php-fpm"
-INIT_RUNNER=/util/phpfpm_initrun.sh

@@ -1,5 +1,11 @@
-CONTAINER_NAME=m3958vertxbase
-DIR_MAP="-v /opt/dockerdata/m3958vertxbase:/opt/runningdir"
+if [ -z $CONTAINER_NAME ]; then
+  CONTAINER_NAME=m3958vertxbase
+fi
+
+if [ -z $HOST_DIR ]; then
+  DIR_MAP="-v /opt/dockerdata/m3958vertxbase:/opt/runningdir"
+fi
+
 PORT_MAP="-p 127.0.0.1:27017:27017 -p 127.0.0.1:6379:6379"
 IMG_NAME="m3958/vertxbase:212"
 HOST_DIR="/opt/dockerdata/m3958vertxbase"

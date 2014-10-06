@@ -1,7 +1,12 @@
 #!/bin/bash
 
-. containerinfo
-. ../functions
+
+curdir="$(dirname ${BASH_SOURCE[0]})"
+pushd $curdir
+
+. "../opt.sh"
+. "containerinfo"
+. "../functions"
 
 docker run --rm -it \
     $(privilegedstr) \
@@ -9,3 +14,5 @@ docker run --rm -it \
     -v /root/m3958-dockers:/m3958-dockers \
     ${IMG_NAME} \
     /bin/bash
+
+popd

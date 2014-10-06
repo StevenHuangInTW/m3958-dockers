@@ -1,3 +1,11 @@
 # how to build this docker container
 
-docker build -t m3958/piwik:2.7.0 .
+curdir="$(dirname ${BASH_SOURCE[0]})"
+
+pushd $curdir
+
+. "containerinfo"
+
+docker build -t ${IMG_NAME} .
+
+popd

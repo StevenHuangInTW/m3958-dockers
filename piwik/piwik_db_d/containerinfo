@@ -1,7 +1,0 @@
-CONTAINER_NAME=piwik_db
-HOST_DIR=/opt/dockerdata/piwik
-DIR_MAP="-v ${HOST_DIR}:/opt/runningdir -v ${HOST_DIR}/mysql/cfg/my.cnf:/etc/my.cnf"
-DEBUG_DIR_MAP="-v ${HOST_DIR}:/opt/runningdir"
-PORT_MAP="-p 127.0.0.1:3306:3306"
-IMG_NAME="m3958/mysql5"
-INIT_RUNNER=/util/mysqld_initrun.sh

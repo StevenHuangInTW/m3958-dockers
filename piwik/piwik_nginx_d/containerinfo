@@ -1,6 +1,0 @@
-HOST_DIR="/opt/dockerdata/piwik"
-CONTAINER_NAME=piwik_nginx
-DIR_MAP="-v ${HOST_DIR}:/opt/runningdir -v ${HOST_DIR}/nginx/cfg/nginx.conf:/etc/nginx/nginx.conf -v ${HOST_DIR}/nginx/cfg/nginx_default.conf:/etc/nginx/conf.d/default.conf"
-DEBUG_DIR_MAP="-v ${HOST_DIR}:/opt/runningdir"
-PORT_MAP="-p 8080:80"
-IMG_NAME="m3958/nginx"

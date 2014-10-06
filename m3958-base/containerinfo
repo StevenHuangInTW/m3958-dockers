@@ -1,5 +1,11 @@
-CONTAINER_NAME=m3958base
+if [ -z $CONTAINER_NAME ]; then
+  CONTAINER_NAME=m3958base
+fi
+
+if [ -z $HOST_DIR ]; then
+  HOST_DIR="/opt/dockerdata/m3958base"
+fi
+
 DIR_MAP="-v /opt/dockerdata/m3958base:/opt/runningdir"
 PORT_MAP=""
 IMG_NAME="m3958/base:201401"
-HOST_DIR="/opt/dockerdata/m3958base"

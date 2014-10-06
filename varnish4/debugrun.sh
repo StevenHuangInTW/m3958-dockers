@@ -1,8 +1,11 @@
 #!/bin/bash
 
-. "$(dirname ${BASH_SOURCE[0]})/../opt.sh"
-. "$(dirname ${BASH_SOURCE[0]})/containerinfo"
-. "$(dirname ${BASH_SOURCE[0]})/../functions"
+curdir="$(dirname ${BASH_SOURCE[0]})"
+pushd $curdir
+
+. "../opt.sh"
+. "containerinfo"
+. "../functions"
 
 docker run --rm -it \
     --link=vertxanonymous:vertxanonymous --link=vertxcombo:vertxcombo \
@@ -12,3 +15,5 @@ docker run --rm -it \
     -v /root/m3958-dockers:/m3958-dockers \
     ${IMG_NAME} \
     /bin/bash
+
+popd

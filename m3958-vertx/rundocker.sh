@@ -1,8 +1,11 @@
 #!/bin/bash
 
-. ../functions
+curdir="$(dirname ${BASH_SOURCE[0]})"
+pushd $curdir
 
-. containerinfo
+. "../opt.sh"
+. "containerinfo"
+. "../functions"
 
 docker run -d \
     --name ${CONTAINER_NAME} \
@@ -10,3 +13,5 @@ docker run -d \
     ${PORT_MAP} \
     ${DIR_MAP} \
     ${IMG_NAME}
+
+popd

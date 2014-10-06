@@ -1,0 +1,2 @@
+IMG_NAME="m3958/piwik:2.7.0"
+HOST_DIR="/opt/dockerdata/piwik"

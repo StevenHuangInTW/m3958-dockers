@@ -1,8 +1,12 @@
 #!/bin/bash
 
-. "$(dirname ${BASH_SOURCE[0]})/../opt.sh"
-. "$(dirname ${BASH_SOURCE[0]})/containerinfo"
-. "$(dirname ${BASH_SOURCE[0]})/../functions"
+
+curdir="$(dirname ${BASH_SOURCE[0]})"
+pushd $curdir
+
+. "../opt.sh"
+. "containerinfo"
+. "../functions"
 
 echo $(privilegedstr)
 
@@ -13,3 +17,4 @@ docker run --rm -it \
     ${DOCKER_PRA} \
     ${IMG_NAME} \
     /util/nginx_initrun.sh
+popd

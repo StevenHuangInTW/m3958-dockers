@@ -1,11 +1,9 @@
 #!/bin/bash
 
 curdir="$(dirname ${BASH_SOURCE[0]})"
-
 pushd $curdir
 
 . "containerinfo"
 
-docker build -t ${IMG_NAME} .
+/bin/bash ../mysql5/debugrun.sh --hostdir=$HOST_DIR
 
-popd

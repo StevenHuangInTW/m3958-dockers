@@ -1,5 +1,10 @@
-CONTAINER_NAME=rabbitmq
+if [ -z $HOST_DIR ]; then
+  HOST_DIR="/opt/dockerdata/rabbitmq"
+fi
+
+if [ -z $HOST_DIR ]; then
+  CONTAINER_NAME=rabbitmq
+fi
 DIR_MAP="-v /opt/dockerdata/rabbitmq:/opt/runningdir"
 PORT_MAP="-p 5672:5672 -p 15672:15672"
-IMG_NAME="m3958/rabbitmq"
-HOST_DIR="/opt/dockerdata/rabbitmq"
+IMG_NAME="m3958/rabbitmq:3.3.5"

@@ -1,13 +1,21 @@
 #!/bin/bash
 
-  bash ./piwik_db_d/initrun.sh
+curdir="$(dirname ${BASH_SOURCE[0]})"
+pushd $curdir
 
-  bash ./piwik_nginx_d/initrun.sh
+. "../opt.sh"
+. "containerinfo"
+. "../functions"
 
-  bash ./piwik_phpfpm_d/initrun.sh
 
-  volname=piwik_data_vol
+/bin/bash ../mysql5/initrun.sh --hostdir=$HOST_DIR
+/bin/bash ../nginx-base/initrun.sh --hostdir=$HOST_DIR
+/bin/bash ../php-fpm/initrun.sh --hostdir=$HOST_DIR
 
-  if [ -z "$(docker ps -a|grep [^/]${volname})" ]; then
-    docker run -d -v /piwikroot --name ${volname} m3958/piwik:2.7.0 echo create piwik data volume
-  fi
+volname=piwik_data_vol
+
+if [ -z "$(docker ps -a|grep [^/]${volname})" ]; then
+  docker run -d -v /piwikroot --name ${volname} ${IMG_NAME} echo create piwik data volume
+fi
+
+popd

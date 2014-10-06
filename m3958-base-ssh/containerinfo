@@ -1,5 +1,11 @@
-CONTAINER_NAME=m3958ssh
+if [ -z $CONTAINER_NAME ]; then
+  CONTAINER_NAME=m3958ssh
+fi
+
+if [ -z $HOST_DIR ]; then
+  HOST_DIR="/opt/dockerdata/m3958ssh"
+fi
+
 DIR_MAP="-v /opt/dockerdata/m3958ssh:/opt/runningdir"
 PORT_MAP="-p 127.0.0.1:222:22"
 IMG_NAME="m3958/ssh"
-HOST_DIR="/opt/dockerdata/m3958ssh"
