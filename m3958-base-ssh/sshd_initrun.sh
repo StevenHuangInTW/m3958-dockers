@@ -2,12 +2,12 @@
 
 #because m3958/base alreay put base_initrun.sh in /util/ folder.
 
-/util/base_initrun.sh
+/util/vertx_initrun.sh
+. /util/initfunctions.sh
 
-ssconf=/opt/runningdir/supervisor.d/supervisord.conf
+pn=sshd
 
-if [ -z $(cat ${ssconf}|grep "program:sshd") ]; then
-  echo "[program:sshd]" >> $ssconf
-  echo "command=/util/sshd_run.sh" >> $ssconf
-fi
+create_skeleton \
+  $pn \
+  /util/${pn}_run.sh 
 

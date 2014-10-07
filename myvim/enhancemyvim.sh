@@ -30,7 +30,7 @@ pushd $bl >/dev/null
 
 git clone ${github}/tpope/vim-surround.git
 git clone ${github}/Raimondi/delimitMate.git
-#git clone ${github}/itchyny/lightline.vim
+git clone ${github}/kien/ctrlp.vim
 
 popd
 

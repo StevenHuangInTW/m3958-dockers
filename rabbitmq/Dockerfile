@@ -10,12 +10,11 @@ RUN yum -y install rabbitmq-server-3.3.5-1.noarch.rpm
 
 ADD rabbitmq-env.conf /etc/rabbitmq/
 
-ADD rabbitmq_run.sh /util/
-RUN chmod +x /util/rabbitmq_run.sh
+ADD rabbitmq_run.sh /
+RUN chmod +x /rabbitmq_run.sh
 
 ADD rabbitmq_initrun.sh /util/
 RUN chmod +x /util/rabbitmq_initrun.sh
-
 
 ADD rabbitmq.config /
 

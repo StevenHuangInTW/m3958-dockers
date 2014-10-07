@@ -1,14 +1,21 @@
 
+# pn, runner, ;sep cfgfstr, user
 create_skeleton () {
   local pn=$1
-  local rdr="/opt/runningapp/$pn"
+  local runner=$2
+  local cfgfstr=$3
+  local usr=$4
+  local rdr="/opt/runningdir/$pn"
   local ssconf="${rdr}/supervisor.d/supervisord.conf"
   local data="${rdr}/data"
   local log="${rdr}/log"
   local cfg="${rdr}/cfg"
-  local runner=$2
-  local cfgfstr=$3
   local cfgfiles=()
+
+  local flagf=/.${pn}.initialized
+  if [ -f "$flagf" ]; then
+    return 0
+  fi
   
   if [ ! -e "$rdr" ]; then
     mkdir $rdr
@@ -27,10 +34,16 @@ create_skeleton () {
   
   if [ ! -e "$data" ]; then
     mkdir -p "$data"
+    if [ -n "$usr" ]; then
+      chown -R $data
+    fi
   fi
   
   if [ ! -e "$log" ]; then
     mkdir -p "$log"
+    if [ -n "$usr" ]; then
+      chown -R $log
+    fi
   fi
   
   if [ ! -e "$cfg" ]; then
@@ -40,7 +53,9 @@ create_skeleton () {
   if [ ! -z "$cfgfstr" ]; then
     cfgfiles=(${cfgfstr//;/ }) 
     for cf in "${cfgfiles[@]}"; do
-      cp $cf $cfg
+      cp -f $cf $cfg
     done
   fi
+
+  touch ${flagf}
 }

@@ -5,6 +5,11 @@
 /util/vertx_initrun.sh
 . /util/initfunctions.sh
 
-create_skeleton anonymousupload /anonymousupload_run.sh /anonymousupload.conf.json
+pn=anonymousupload
+
+create_skeleton \
+  $pn \
+  /${pn}_run.sh \
+  /${pn}.conf.json
 
 

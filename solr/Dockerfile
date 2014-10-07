@@ -11,8 +11,8 @@ RUN mkdir /sharedLib
 
 RUN cp solr-4.10.1/contrib/analysis-extras/lucene-libs/* /sharedLib
 
-ADD solr_run.sh /util/
-RUN chmod +x /util/solr_run.sh
+ADD solr_run.sh /
+RUN chmod +x /solr_run.sh
 
 ADD schema.xml /solr_cfg/
 ADD solr.xml /solr_cfg/
