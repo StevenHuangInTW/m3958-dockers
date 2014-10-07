@@ -8,5 +8,5 @@ pn=php-fpm
 create_skeleton \
   $pn \
   /phpfpm_run.sh \
-  /php-fpm.conf;/php-fpm-www.conf;/php.ini \
+  /php-fpm.conf;/www.conf;/php.ini \
   apache

@@ -21,7 +21,7 @@ ADD phpfpm_initrun.sh /util/
 RUN chmod +x /util/phpfpm_initrun.sh
 
 ADD php-fpm.conf /
-ADD www.conf /php-fpm-www.conf
+ADD www.conf /
 ADD php.ini /
 
 EXPOSE 9000
