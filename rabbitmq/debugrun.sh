@@ -1,7 +1,7 @@
 #!/bin/bash
 
 curdir="$(dirname ${BASH_SOURCE[0]})"
-pushd $curdir
+pushd $curdir >>/dev/null
 
 . "../opt.sh"
 . "containerinfo"

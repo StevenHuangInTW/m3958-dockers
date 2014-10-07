@@ -3,33 +3,8 @@
 #because m3958/base alreay put base_initrun.sh in /util/ folder.
 
 /util/vertx_initrun.sh
+. /util/initfunctions.sh
 
-ssconf=/opt/runningdir/supervisor.d/supervisord.conf
-
-pn=anonymousupload
-
-runner=/anonymousupload_run.sh
-
-rdr=/opt/runningdir/anonymousupload
-data="${rdr}/data"
-log="${rdr}/log"
-cfg="${rdr}/cfg"
-
-if [ -z $(cat ${ssconf}|grep "program:${pn}") ]; then
-  echo "[program:${pn}]" >> $ssconf
-  echo "command=${runner}" >> $ssconf
-fi
+create_skeleton anonymousupload /anonymousupload_run.sh /anonymousupload.conf.json
 
 
-if [ ! -e "$data" ]; then
-  mkdir -p "$data"
-fi
-
-if [ ! -e "$log" ]; then
-  mkdir -p "$log"
-fi
-
-if [ ! -e "$cfg" ]; then
-  mkdir -p "$cfg"
-  cp /anonymousupload.conf.json "${cfg}"
-fi

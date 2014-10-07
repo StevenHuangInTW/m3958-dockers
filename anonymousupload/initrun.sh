@@ -1,7 +1,7 @@
 #!/bin/bash
 
 curdir="$(dirname ${BASH_SOURCE[0]})"
-pushd $curdir
+pushd $curdir >>/dev/null
 
 . "../opt.sh"
 . "containerinfo"
@@ -16,3 +16,4 @@ docker run --rm -it \
     ${DOCKER_PRA} \
     ${IMG_NAME} \
     /util/anonymousupload_initrun.sh
+popd

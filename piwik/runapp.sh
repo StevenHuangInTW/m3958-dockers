@@ -11,15 +11,19 @@ echo "current directory: $curdir"
 
 action=$1
 
-cnames=(piwik_nginx piwik_db piwik_phpfpm)
-runners=(../nginx-base ../mysql5 ../php-fpm)
+cnames=(piwik_db piwik_phpfpm piwik_nginx)
+runners=(../mysql5 ../php-fpm ../nginx-base)
+dockerprabase="--volumes-from piwik_data_vol"
+dockerpra=""
+cname=""
+runner=""
 
 if [ "stop" = "$action" ]; then
   for cn in "${cnames[@]}"
   do
     docker stop $cn
   done
-elif [ "remove" = "$action" ]; then
+elif [[ "remove" = "$action" || "rm" = "$action" ]]; then
   for cn in "${cnames[@]}"
   do
     docker rm $cn
@@ -27,14 +31,31 @@ elif [ "remove" = "$action" ]; then
 else
   for i in 0 1 2
   do
-    if [ ! "yes" = "$(container_running ${cnames[$i]})" ]; then
-      if [ "yes" = "$(container_exist ${cnames[$i]})" ]; then
-        docker start ${cnames[$i]}
+#    pushd $curdir >/dev/null 2>&1
+    cname=${cnames[$i]}
+    runner=${runners[$i]}
+    if [ ! "yes" = "$(container_running $cname)" ]; then
+      if [ "yes" = "$(container_exist $cname)" ]; then
+        docker start $cname
       else
-       pushd $curdir >/dev/null
-        /bin/bash ${runners[$i]}/rundocker.sh --hostdir=$HOST_DIR --cname=${cnames[$i]} --dockerpra="--volumes-from piwik_data_vol"
-       popd
+       if [ piwik_phpfpm = "$cname" ]; then
+        dockerpra="${dockerprabase} --link piwik_db:piwik_db" 
+       elif [ piwik_nginx = "$cname" ]; then
+        dockerpra="${dockerprabase} --link piwik_phpfpm:piwik_phpfpm" 
+       else
+         dockerpra=""
+       fi
+       echo $dockerpra
+
+        /bin/bash ${runner}/rundocker.sh \
+                --hostdir="$HOST_DIR" \
+                --cname="${cnames[$i]}" \
+                --dockerpra="${dockerpraa}"
+#       popd
       fi
     fi    
   done
 fi
+
+#piwik_phpfpm must link to piwik_db
+#piwik_nginx must link to piwik_phpfpm

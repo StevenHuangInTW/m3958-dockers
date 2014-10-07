@@ -9,11 +9,17 @@ fi
 
 /util/base_initrun.sh
 
-ssconf=/opt/runningdir/supervisor.d/supervisord.conf
 pn=nginx
 runner=/nginx_run.sh
 
 rdr=/opt/runningdir/nginx
+if [ ! -e "$rdr" ]; then
+  mkdir $rdr
+fi
+
+cp -R /cfgdir/supervisor.d $rdr
+
+ssconf="${rdr}supervisor.d/supervisord.conf"
 
 data="${rdr}/data"
 log="${rdr}/log"
@@ -26,6 +32,8 @@ if [ -z $(cat ${ssconf}|grep "program:${pn}") ]; then
 fi
 
 
+echo "$data"
+echo "$log"
 if [ ! -e "$data" ]; then
   mkdir -p "$data"
   chown -R "${user}:${user}" "$data"

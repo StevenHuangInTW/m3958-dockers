@@ -9,6 +9,7 @@ pn=varnish4
 runner=/util/varnish4_run.sh
 
 rdr=/opt/runningdir/varnish4
+
 data="${rdr}/data"
 log="${rdr}/log"
 cfg="${rdr}/cfg"

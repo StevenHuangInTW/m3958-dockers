@@ -1,18 +1,40 @@
 #!/bin/bash
 
-mkdir -p ~/.vim/autoload 
-mkdir ~/.vim/bundle
-curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+al=~/.vim/autoload
+bl=~/.vim/bundle
+vimrc=~/.vimrc
+github=https://github.com
 
-echo "execute pathogen#infect()" >> ~/.vimrc
-echo "syntax on" >> ~/.vimrc
-echo "filetype plugin indent on" >> ~/.vimrc
-pushd ~/.vim/bundle >/dev/null
-git clone git://github.com/tpope/vim-surround.git
-git clone git://github.com/Raimondi/delimitMate.git
+if [ ! -e "$al" ]; then
+  mkdir -p $al
+fi
+
+if [ ! -e "$bl" ]; then
+  mkdir -p $bl
+fi
+echo "${al}/pathogen.vim"
+
+curl -LSso "${al}/pathogen.vim" https://raw.githubusercontent.com/tpope/vim-pathogen/v2.3/autoload/pathogen.vim
+
+cat 1>$vimrc <<PATHOGENINIT
+execute pathogen#infect()
+syntax on
+filetype plugin indent on
+set ts=2
+set expandtab
+set nu
+set shiftwidth=2
+PATHOGENINIT
+
+pushd $bl >/dev/null
+
+git clone ${github}/tpope/vim-surround.git
+git clone ${github}/Raimondi/delimitMate.git
+#git clone ${github}/itchyny/lightline.vim
+
 popd
 
-vim <<-HELPTAGS
-  :Helptags
-  :q
-HELPTAGS
+#vim <<HELPTAGSINIT
+#:Helptags
+#:q
+#HELPTAGSINIT

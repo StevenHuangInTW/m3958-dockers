@@ -18,5 +18,6 @@ RUN yum -y install java-1.7.0-openjdk.x86_64 java-1.7.0-openjdk-devel.x86_64
 ADD cfgdir /cfgdir
 ADD util /util
 RUN chmod +x /util/*.sh
-
-CMD ["/usr/bin/supervisord", "-c", "/opt/runningdir/supervisor.d/supervisord.conf"]
+RUN echo "#/bin/bash" > /run_container.sh
+RUN chmod +x /run_container.sh
+CMD /run_container.sh
