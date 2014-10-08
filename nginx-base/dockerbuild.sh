@@ -4,7 +4,7 @@ curdir="$(dirname ${BASH_SOURCE[0]})"
 
 pushd $curdir >>/dev/null
 
-. "containerinfo"
+. containerinfo
 
 docker build -t ${IMG_NAME} .
 

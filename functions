@@ -103,3 +103,12 @@ copy_commons () {
 copy_tocontainer () {
   copy_commons "runsshd.sh" "set_root_pw.sh"
 }
+#@params: appname, servicename
+sn_logn_bcn_cn () {
+  local px="${1}-${2}-"
+  local service_cn="${px}service"
+  local log_cn="${px}log-vol"
+  local bc_cn="${px}baseconfig-vol"
+  local c_cn="${px}config-vol"
+  echo "${service_cn} ${log_cn} ${bc_cn} ${c_cn}"
+}

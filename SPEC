@@ -1,0 +1,16 @@
+1. we category container to 3 type, service container, data container(volume), log container(volume), config container(volume)
+
+2, for server image, according to service, may create some data volume on it. because data volume will copy init content from image, use this volume to customize config. for example, a nginx service image, we can create a /etc/nginx data volume.
+
+3, every image has a /m3958baseconfig directory, in which has,dnsmasq.conf,supervisord.conf, and addn_host file. use:
+ docker run -d -v /m3958baseconfig --name servicename-base-config-vol  m3958/base:201401 echo base config
+to create a named vol to customize content.
+
+4. every service container use supervisord to start, default has dnsmasq started, you can read supervisord.conf.
+5. container name conventions. 
+
+service container: appname-servicename-service, for example: piwik-nginx-service
+data container: appname-dataname-usageservicename..-data-vol
+log container: appname-servicename-log-vol
+base config container: appname-servicename-baseconfig-vol
+config container: appname-servicename-config-vol
