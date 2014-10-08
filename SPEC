@@ -14,3 +14,5 @@ data container: appname-dataname-usageservicename..-data-vol
 log container: appname-servicename-log-vol
 base config container: appname-servicename-baseconfig-vol
 config container: appname-servicename-config-vol
+6. web root path: /www/html
+

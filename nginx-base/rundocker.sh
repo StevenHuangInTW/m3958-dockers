@@ -1,7 +1,7 @@
 #!/bin/bash
 
 curdir="$(dirname ${BASH_SOURCE[0]})"
-pushd $curdir >>/dev/null
+pushd $curdir >/dev/null
 
 . "../opt.sh"
 . "containerinfo"
@@ -15,4 +15,4 @@ docker run -d \
     ${DIR_MAP} \
     ${IMG_NAME}
 
-popd
+popd >/dev/null

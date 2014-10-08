@@ -105,7 +105,13 @@ copy_tocontainer () {
 }
 #@params: appname, servicename
 sn_logn_bcn_cn () {
-  local px="${1}-${2}-"
+  local px=""
+  if [ -z "$1" ]; then
+    px="${2}-"
+  else
+    px="${1}-${2}-"
+  fi
+
   local service_cn="${px}service"
   local log_cn="${px}log-vol"
   local bc_cn="${px}baseconfig-vol"
