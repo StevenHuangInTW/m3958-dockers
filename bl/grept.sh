@@ -10,9 +10,9 @@ echo $(echo "$str" | grep "service[[:space:]]\+")
 
 echo $(echo "service/" | grep "service[[:space:]]\+")
 
-names="x/x a"
-
-na=(${names///})
+names="x/x,a"
+# the space before } is needed.
+na=(${names//,/ })
 
 for i in "${na[@]}"; do
   echo $i

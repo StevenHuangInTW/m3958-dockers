@@ -3,12 +3,13 @@
 curdir="$(dirname ${BASH_SOURCE[0]})"
 pushd $curdir >/dev/null
 
-MY_ARGS=$(getopt -o a:b:c -l "action:,appname:,imgname:,servicename:,logpath:,p:,link:,volumes-from:" -n "" -- "$@")
+MY_ARGS=$(getopt -o a:b:c -l "action:,appname:,imgname:,servicename:,logpath:,p:,link:,volumes-from:,dns:" -n "" -- "$@")
 eval set -- "$MY_ARGS"
 
 pmap=""
 links=""
 volfroms=""
+dns=""
 
 while true; do
   case "$1" in
@@ -28,6 +29,8 @@ while true; do
       shift;links="${links} --link $1 ";shift;;
     --volumes-from)
       shift;volfroms="${volfroms} --volumes-from $1 ";shift;;
+    --dns)
+      shift;dns="${dns} --dns $1 ";shift;;
     --)
        shift;break;;
   esac
@@ -64,6 +67,7 @@ elif [ "start" = "${action}" ]; then
         --volumes-from ${logn} \
         --volumes-from ${cn} \
         $volfroms \
+        $dns \
         $pmap \
         ${links} \
         --name ${service_cn} \
@@ -75,6 +79,7 @@ elif [ "debug" = "${action}" ]; then
     --volumes-from ${logn} \
     --volumes-from ${cn} \
     ${links} \
+    $dns \
     ${imgname} \
     /bin/bash
 elif [ "stop" = "${action}" ]; then
