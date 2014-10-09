@@ -4,11 +4,17 @@ MAINTAINER Libo Jiang <jianglibo@gmail.com>
 ADD nginx.repo /etc/yum.repos.d/nginx.repo
 
 RUN yum -y install nginx
-RUN echo "[program:nginx]" >> /m3958baseconfig/supervisord.conf
-RUN echo "command=/usr/sbin/nginx" >> /m3958baseconfig/supervisord.conf
+
+RUN echo "[program:nginx]" >> /m3958dir/config/supervisord.conf
+RUN echo "command=/usr/sbin/nginx -c /m3958dir/config/nginx/nginx.conf" >> /m3958dir/config/supervisord.conf
 RUN mkdir -p /www
 RUN cp -R /usr/share/nginx/html /www/
-RUN sed -i "s#/usr/share/nginx/html#/www/html#" /etc/nginx/conf.d/default.conf
+
+RUN cp -R /etc/nginx /m3958dir/config/
+
+RUN sed -i "s#/usr/share/nginx/html#/www/html#" /m3958dir/config/nginx/conf.d/default.conf
+
+RUN sed -i "s#/etc/nginx#/m3958dir/config/nginx#" /m3958dir/config/nginx/nginx.conf
 
 EXPOSE 80
 

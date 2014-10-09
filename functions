@@ -104,7 +104,7 @@ copy_tocontainer () {
   copy_commons "runsshd.sh" "set_root_pw.sh"
 }
 #@params: appname, servicename
-sn_logn_bcn_cn () {
+sn_logn_cn () {
   local px=""
   if [ -z "$1" ]; then
     px="${2}-"
@@ -114,7 +114,6 @@ sn_logn_bcn_cn () {
 
   local service_cn="${px}service"
   local log_cn="${px}log-vol"
-  local bc_cn="${px}baseconfig-vol"
   local c_cn="${px}config-vol"
   echo "${service_cn} ${log_cn} ${bc_cn} ${c_cn}"
 }

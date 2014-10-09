@@ -1,4 +1,12 @@
-1. we category container to 3 type, service container, data container(volume), log container(volume), config container(volume)
+1. container folder convention:
+/m3958util for common util used in container
+/m3958dir
+  /config
+  /data
+
+
+
+1. we category container to 4 type, service container, data container(volume), log container(volume), config container(volume)
 
 2, for server image, according to service, may create some data volume on it. because data volume will copy init content from image, use this volume to customize config. for example, a nginx service image, we can create a /etc/nginx data volume.
 

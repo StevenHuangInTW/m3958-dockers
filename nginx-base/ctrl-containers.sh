@@ -24,19 +24,18 @@ done
 appname=${appname-appname}
 imgname=${imgname-m3958/nginx}
 
-names=$(sn_logn_bcn_cn ${appname} nginx)
+names=$(sn_logn_cn ${appname} nginx)
 
 #split string
 na=(${names///})
 servicen=${na[0]}
 logn=${na[1]}
-bcn=${na[2]}
-cn=${na[3]}
+cn=${na[2]}
+configpath=/m3958dir/config/nginx
 
 if [ "init" = "${action}" ]; then
-  docker run -d -v /var/log/nginx --name ${logn}  m3958/nginx echo ${na[1]}
-  docker run -d -v /m3958baseconfig  --name ${bcn}  m3958/nginx echo ${na[2]}
-  docker run -d -v /etc/nginx  --name ${cn}  m3958/nginx echo ${na[3]}
+  docker run -d -v /var/log/nginx --name ${logn}  ${imgname} echo ${logn}
+  docker run -d -v ${configpath}  --name ${cn}  ${imgname} echo ${cn}
 elif [ "start" = "${action}" ]; then
   if [ ! "yes" = $( container_running ${servicen} ) ]; then
     if [ "yes" = $(container_exist ${servicen}) ]; then
@@ -44,7 +43,6 @@ elif [ "start" = "${action}" ]; then
     else
       docker run -d \
         --volumes-from ${logn} \
-        --volumes-from ${bcn} \
         --volumes-from ${cn} \
         -p 8080:80 \
         --name ${servicen} \
@@ -54,15 +52,11 @@ elif [ "start" = "${action}" ]; then
 elif [ "stop" = "${action}" ]; then
   docker stop ${servicen}
 elif [ "editconfig" = "${action}" ]; then
-  echo "please edit files in /etc/nginx folder, wait 5 sec..."
+  echo "please edit files in ${configpath} folder, wait 5 sec..."
   sleep 5
   docker run --rm -it --volumes-from ${cn} ${imgname} /bin/bash
-elif [ "editbaseconfig" = "${action}" ]; then
-  echo "please edit files in /m3958baseconfig folder, wait 5 sec..."
-  sleep 5
-  docker run --rm -it --volumes-from ${bcn} ${imgname} /bin/bash
 else
-  echo "usage: --action=init,start,stop,editconfig,editbaseconfig"
+  echo "usage: --action=init,start,stop,editconfig"
 fi
 
 popd >/dev/null

@@ -14,14 +14,16 @@ RUN yum -y install \
     php-mbstring \
     php-curl
 
-ADD phpfpm_run.sh /
-RUN chmod +x /phpfpm_run.sh
+# if possible,move config to /m3958dir/config
 
-ADD phpfpm_initrun.sh /util/
-RUN chmod +x /util/phpfpm_initrun.sh
-
-ADD php-fpm.conf /
-ADD www.conf /
-ADD php.ini /
+#ADD phpfpm_run.sh /
+#RUN chmod +x /phpfpm_run.sh
+#
+#ADD phpfpm_initrun.sh /util/
+#RUN chmod +x /util/phpfpm_initrun.sh
+#
+#ADD php-fpm.conf /
+#ADD www.conf /
+#ADD php.ini /
 
 EXPOSE 9000

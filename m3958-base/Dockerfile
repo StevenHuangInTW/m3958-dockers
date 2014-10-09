@@ -13,12 +13,17 @@ RUN yum -y install dnsmasq
 
 RUN yum -y install supervisor
 
-RUN mkdir /m3958baseconfig
-ADD dnsmasq.conf /m3958baseconfig/
-ADD supervisord.conf /m3958baseconfig/
-ADD addn-hosts /m3958baseconfig/
+RUN mkdir /m3958dir
+RUN mkdir /m3958util
+RUN mkdir -p /m3958dir/data
+RUN mkdir -p /m3958dir/config
 
-CMD ["/usr/bin/supervisord", "-c", "/m3958baseconfig/supervisord.conf"]
+ADD config /m3958dir/config
+
+ADD util/cfunctions.sh /m3958util/
+
+
+CMD ["/usr/bin/supervisord", "-c", "/m3958dir/config/supervisord.conf"]
 
 # if you create volume here, you will not able to change content in it.
 # you must create a named data volume from this image, then share to others

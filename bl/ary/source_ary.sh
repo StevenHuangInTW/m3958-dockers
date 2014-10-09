@@ -1,3 +1,0 @@
-#!/bin/bash
-
-. ary.sh
