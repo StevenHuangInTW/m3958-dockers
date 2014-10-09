@@ -18,9 +18,10 @@ to create a named vol to customize content.
 5. container name conventions. 
 
 service container: appname-servicename-service, for example: piwik-nginx-service
-data container: appname-dataname-usageservicename..-data-vol
+changing data container: appname-servicename-data-vol
 log container: appname-servicename-log-vol
-base config container: appname-servicename-baseconfig-vol
 config container: appname-servicename-config-vol
+static data container: piwik-php-files-vol
+
 6. web root path: /www/html
 

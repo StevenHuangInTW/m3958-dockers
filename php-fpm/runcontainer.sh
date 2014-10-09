@@ -11,9 +11,8 @@ fi
 /bin/bash ../ctrl-containers.sh \
   --action=$1 \
   --appname=appname \
-  --logpath=/var/log/nginx \
-  --servicename=nginx \
-  --imgname=m3958/nginx \
-  --p=8080:80
+  --logpath=/var/log/php-fpm \
+  --servicename=php-fpm \
+  --imgname=m3958/php-fpm
 
 popd >/dev/null

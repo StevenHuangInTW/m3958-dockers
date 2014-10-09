@@ -11,9 +11,10 @@ fi
 /bin/bash ../ctrl-containers.sh \
   --action=$1 \
   --appname=appname \
-  --logpath=/var/log/nginx \
-  --servicename=nginx \
-  --imgname=m3958/nginx \
-  --p=8080:80
+  --logpath=/var/log/varnish \
+  --servicename=varnish4 \
+  --imgname=m3958/varnish4 \
+  --p=80:80
 
 popd >/dev/null
+

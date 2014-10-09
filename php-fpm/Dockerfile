@@ -23,21 +23,16 @@ RUN cp /etc/php.ini /m3958dir/config/
 
 
 RUN echo "[program:php-fpm]" >> /m3958dir/config/supervisord.conf
-RUN echo "command=/usr/sbin/php-fpml -D -c /m3958dir/config/php.ini -y /m3958dir/config/php-fpm.conf" >> /m3958dir/config/supervisord.conf
+RUN echo "command=/usr/sbin/php-fpm -F -c /m3958dir/config/php.ini -y /m3958dir/config/php-fpm.conf" >> /m3958dir/config/supervisord.conf
 RUN mkdir -p /www/html
 
-RUN echo "<?php\nphpinfo();\n?>" > /www/html/index.php
+# -e will cause \n to work.
+RUN echo -e "<?php\nphpinfo();\n?>" > /www/html/index.php
 
 RUN sed -i "s#/etc/#/m3958dir/config/#" /m3958dir/config/php-fpm.conf
 
-#ADD phpfpm_run.sh /
-#RUN chmod +x /phpfpm_run.sh
-#
-#ADD phpfpm_initrun.sh /util/
-#RUN chmod +x /util/phpfpm_initrun.sh
-#
-#ADD php-fpm.conf /
-#ADD www.conf /
-#ADD php.ini /
+RUN sed -i "s/listen.allowed/#listen.allowed/" /m3958dir/config/php-fpm.conf
+RUN sed -i "s/listen = 127.0.0.1:/listen = /" /m3958dir/config/php-fpm.conf
+
 
 EXPOSE 9000

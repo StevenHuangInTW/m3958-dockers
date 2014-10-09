@@ -1,5 +1,5 @@
 #!/bin/bash
 
-. /opt/runningdir/varnish4/cfg/varnish.config
+. /m3958dir/config/varnish.config
 
-exec /usr/sbin/varnishd $DAEMON_OPTS
+exec /usr/sbin/varnishd -F $DAEMON_OPTS
