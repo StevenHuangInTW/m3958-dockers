@@ -3,8 +3,10 @@
 curdir="$(dirname ${BASH_SOURCE[0]})"
 pushd $curdir >/dev/null
 
-MY_ARGS=$(getopt -o a:b:c -l "action:,appname:,imgname:" -n "" -- "$@")
+MY_ARGS=$(getopt -o a:b:c -l "action:,appname:,imgname:,servicename:,logpath:,pmap:" -n "" -- "$@")
 eval set -- "$MY_ARGS"
+
+pmap=""
 
 while true; do
   case "$1" in
@@ -14,43 +16,49 @@ while true; do
       shift;appname=$1;shift;;
     --imgname)
       shift;imgname=$1;shift;;
+    --logpath)
+      shift;logpath=$1;shift;;
+    --servicename)
+      shift;servicename=$1;shift;;
+    --pmap)
+      shift;pmap="-p $1 ";shift;;
     --)
        shift;break;;
   esac
 done
 
-. ../functions
+. functions
 
 appname=${appname-appname}
-imgname=${imgname-m3958/nginx}
+imgname=${imgname}
 
-names=$(sn_logn_cn ${appname} nginx)
+names=$(sn_logn_cn ${appname} ${servicename})
 
 #split string
 na=(${names///})
-servicen=${na[0]}
+service_cn=${na[0]}
 logn=${na[1]}
 cn=${na[2]}
-configpath=/m3958dir/config/nginx
+configpath=/m3958dir/config
 
 if [ "init" = "${action}" ]; then
-  docker run -d -v /var/log/nginx --name ${logn}  ${imgname} echo ${logn}
+  docker run -d -v ${logpath} --name ${logn}  ${imgname} echo ${logn}
   docker run -d -v ${configpath}  --name ${cn}  ${imgname} echo ${cn}
 elif [ "start" = "${action}" ]; then
-  if [ ! "yes" = $( container_running ${servicen} ) ]; then
-    if [ "yes" = $(container_exist ${servicen}) ]; then
-      docker start ${servicen}
+  if [ ! "yes" = $( container_running ${service_cn} ) ]; then
+    if [ "yes" = $(container_exist ${service_cn}) ]; then
+      docker start ${service_cn}
     else
       docker run -d \
         --volumes-from ${logn} \
         --volumes-from ${cn} \
-        -p 8080:80 \
-        --name ${servicen} \
+        $pmap \
+        --name ${service_cn} \
         ${imgname}
     fi
   fi
 elif [ "stop" = "${action}" ]; then
-  docker stop ${servicen}
+  docker stop ${service_cn}
 elif [ "editconfig" = "${action}" ]; then
   echo "please edit files in ${configpath} folder, wait 5 sec..."
   sleep 5

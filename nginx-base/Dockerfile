@@ -16,6 +16,8 @@ RUN sed -i "s#/usr/share/nginx/html#/www/html#" /m3958dir/config/nginx/conf.d/de
 
 RUN sed -i "s#/etc/nginx#/m3958dir/config/nginx#" /m3958dir/config/nginx/nginx.conf
 
+RUN sed -i "3a daemon off;" /m3958dir/config/nginx/nginx.conf
+
 EXPOSE 80
 
 # to cutomize this container, we must create 4 volumes,
