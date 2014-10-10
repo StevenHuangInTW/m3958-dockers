@@ -3,13 +3,16 @@
 curdir="$(dirname ${BASH_SOURCE[0]})"
 pushd $curdir >/dev/null
 
-MY_ARGS=$(getopt -o a:b:c -l "action:,appname:,imgname:,servicename:,logpath:,p:,link:,volumes-from:,dns:" -n "" -- "$@")
+. functions
+
+MY_ARGS=$(getopt -o a:b:c -l "action:,appname:,imgname:,servicename:,logpath:,p:,link:,volumes-from:,dns:,tty:" -n "" -- "$@")
 eval set -- "$MY_ARGS"
 
 pmap=""
 links=""
 volfroms=""
 dns=""
+tty=""
 
 while true; do
   case "$1" in
@@ -31,12 +34,14 @@ while true; do
       shift;volfroms="${volfroms} --volumes-from $1 ";shift;;
     --dns)
       shift;dns="${dns} --dns $1 ";shift;;
+    --tty)
+      shift;tty="-t";shift;;
     --)
        shift;break;;
   esac
 done
-
-. functions
+echo "pmap: ${pmap}"
+echo "tty is: ${tty}"
 
 appname=${appname-appname}
 imgname=${imgname}
@@ -48,12 +53,15 @@ na=(${names///})
 service_cn=${na[0]}
 logn=${na[1]}
 cn=${na[2]}
+supvisorlogcn=${na[3]}
+
 configpath=/m3958dir/config
 
 echo "$service_cn is running: $(container_running ${service_cn})"
 
 if [ "init" = "${action}" ]; then
   docker run -d -v ${logpath} --name ${logn}  ${imgname} echo ${logn}
+  docker run -d -v /var/log/supervisor  --name ${supvisorlogcn}  ${imgname} echo ${supvisorlogcn}
   docker run -d -v ${configpath}  --name ${cn}  ${imgname} echo ${cn}
 elif [ "start" = "${action}" ]; then
   if [ ! "yes" = $(container_running ${service_cn}) ]; then
@@ -66,7 +74,9 @@ elif [ "start" = "${action}" ]; then
       docker run -d \
         --volumes-from ${logn} \
         --volumes-from ${cn} \
+        --volumes-from ${supvisorlogcn} \
         $volfroms \
+        $tty \
         $dns \
         $pmap \
         ${links} \
@@ -78,7 +88,20 @@ elif [ "debug" = "${action}" ]; then
   docker run --rm -it \
     --volumes-from ${logn} \
     --volumes-from ${cn} \
+    --volumes-from ${supvisorlogcn} \
     ${links} \
+    $tty \
+    $dns \
+    ${imgname} \
+    /bin/bash
+elif [ "debugwithport" = "${action}" ]; then
+  docker run --rm -it \
+    --volumes-from ${logn} \
+    --volumes-from ${cn} \
+    --volumes-from ${supvisorlogcn} \
+    $pmap \
+    ${links} \
+    $tty \
     $dns \
     ${imgname} \
     /bin/bash
@@ -95,6 +118,7 @@ elif [ "remove" = "${action}" ]; then
       echo "removing..."
       docker rm ${logn}
       docker rm ${cn}
+      docker rm ${supvisorlogcn}
       if [ "yes" = $( container_running ${service_cn} ) ]; then
         docker stop ${service_cn}
       fi

@@ -12,14 +12,14 @@ fi
   --action=$1 \
   --appname=appname \
   --logpath=/var/log/varnish \
-  --servicename=varnish4 \
-  --imgname=m3958/varnish4 \
+  --servicename=sshd \
+  --imgname=m3958/sshd \
   --dns=127.0.0.1 \
   --dns=223.5.5.5 \
   --dns=223.6.6.6 \
-  --p=80:80 \
   --tty=true \
   --p=222:22
 
 popd >/dev/null
+
 

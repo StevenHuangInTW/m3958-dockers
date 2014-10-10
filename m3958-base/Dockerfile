@@ -14,13 +14,16 @@ RUN yum -y install dnsmasq
 RUN yum -y install supervisor
 
 RUN mkdir /m3958dir
-RUN mkdir /m3958util
 RUN mkdir -p /m3958dir/data
 RUN mkdir -p /m3958dir/config
+RUN mkdir -p /var/log/supervisor/childlog
+RUN mkdir /util
+
+ADD util /util
+
+RUN chmod +x /util/*.sh
 
 ADD config /m3958dir/config
-
-ADD util/cfunctions.sh /m3958util/
 
 
 CMD ["/usr/bin/supervisord", "-c", "/m3958dir/config/supervisord.conf"]
@@ -29,13 +32,5 @@ CMD ["/usr/bin/supervisord", "-c", "/m3958dir/config/supervisord.conf"]
 # you must create a named data volume from this image, then share to others
 # make change data persist.
  
-#VOLUME [/m3958baseconfig]
-
 #RUN yum -y install java-1.7.0-openjdk.x86_64 java-1.7.0-openjdk-devel.x86_64
 
-#ADD cfgdir /cfgdir
-#ADD util /util
-#RUN chmod +x /util/*.sh
-#RUN echo "#/bin/bash" > /run_container.sh
-#RUN chmod +x /run_container.sh
-#CMD /run_container.sh
