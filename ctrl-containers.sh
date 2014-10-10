@@ -89,6 +89,7 @@ elif [ "debug" = "${action}" ]; then
     --volumes-from ${logn} \
     --volumes-from ${cn} \
     --volumes-from ${supvisorlogcn} \
+    -v /opt/dockerdata:/hostdir \
     ${links} \
     $tty \
     $dns \
@@ -99,6 +100,7 @@ elif [ "debugwithport" = "${action}" ]; then
     --volumes-from ${logn} \
     --volumes-from ${cn} \
     --volumes-from ${supvisorlogcn} \
+    -v /opt/dockerdata:/hostdir \
     $pmap \
     ${links} \
     $tty \

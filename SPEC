@@ -1,27 +1,19 @@
 1. container folder convention:
-/m3958util for common util used in container
+/util for common util used in container
 /m3958dir
   /config
   /data
 
-
-
-1. we category container to 4 type, service container, data container(volume), log container(volume), config container(volume)
-
-2, for server image, according to service, may create some data volume on it. because data volume will copy init content from image, use this volume to customize config. for example, a nginx service image, we can create a /etc/nginx data volume.
-
-3, every image has a /m3958baseconfig directory, in which has,dnsmasq.conf,supervisord.conf, and addn_host file. use:
- docker run -d -v /m3958baseconfig --name servicename-base-config-vol  m3958/base:201401 echo base config
-to create a named vol to customize content.
+2.all config copy from origin file, modify it in Dockerfile.
+3.a service container may has config-vol, data-vol, log-vol
 
 4. every service container use supervisord to start, default has dnsmasq started, you can read supervisord.conf.
-5. container name conventions. 
 
+5. container name conventions. 
 service container: appname-servicename-service, for example: piwik-nginx-service
-changing data container: appname-servicename-data-vol
+data container: appname-servicename-data-vol
 log container: appname-servicename-log-vol
 config container: appname-servicename-config-vol
-static data container: piwik-php-files-vol
 
 6. web root path: /www/html
-
+7. container debug run, default map /opt/dockerdata into /hostdir, so you can exchange file between host and container.
