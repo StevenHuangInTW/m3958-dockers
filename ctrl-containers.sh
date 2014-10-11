@@ -5,14 +5,23 @@ pushd $curdir >/dev/null
 
 . functions
 
-MY_ARGS=$(getopt -o a:b:c -l "action:,appname:,imgname:,servicename:,logpath:,p:,link:,volumes-from:,dns:,tty:" -n "" -- "$@")
+MY_ARGS=$(getopt -o "p:t" -l "action:,appname:,imgname:,servicename:,logpath:,link:,volumes-from:,has-datavol:,dns:" -n "" -- "$@")
+
 eval set -- "$MY_ARGS"
 
+#for x in "$@"; do
+#  echo $x
+#done
+#exit 0
+
+action=""
 pmap=""
 links=""
 volfroms=""
 dns=""
 tty=""
+hasdatavol=""
+haslogvol=""
 
 while true; do
   case "$1" in
@@ -26,22 +35,24 @@ while true; do
       shift;logpath=$1;shift;;
     --servicename)
       shift;servicename=$1;shift;;
-    --p)
+    -p)
       shift;pmap="${pmap} -p $1 ";shift;;
     --link)
       shift;links="${links} --link $1 ";shift;;
     --volumes-from)
       shift;volfroms="${volfroms} --volumes-from $1 ";shift;;
+    --has-datavol)
+      shift;hasdatavol="$1";shift;;
+    --has-logvol)
+      shift;haslogvol="$1";shift;;
     --dns)
       shift;dns="${dns} --dns $1 ";shift;;
-    --tty)
-      shift;tty="-t";shift;;
+    -t)
+      shift;tty="-t";;
     --)
        shift;break;;
   esac
 done
-echo "pmap: ${pmap}"
-echo "tty is: ${tty}"
 
 appname=${appname-appname}
 imgname=${imgname}
@@ -57,13 +68,14 @@ supvisorlogcn=${na[3]}
 
 configpath=/m3958dir/config
 
-echo "$service_cn is running: $(container_running ${service_cn})"
 
-if [ "init" = "${action}" ]; then
+init_c () {
   docker run -d -v ${logpath} --name ${logn}  ${imgname} echo ${logn}
   docker run -d -v /var/log/supervisor  --name ${supvisorlogcn}  ${imgname} echo ${supvisorlogcn}
   docker run -d -v ${configpath}  --name ${cn}  ${imgname} echo ${cn}
-elif [ "start" = "${action}" ]; then
+}
+
+start_c () {
   if [ ! "yes" = $(container_running ${service_cn}) ]; then
     if [ "yes" = $(container_exist ${service_cn}) ]; then
       docker start ${service_cn}
@@ -84,7 +96,10 @@ elif [ "start" = "${action}" ]; then
         ${imgname}
     fi
   fi
-elif [ "debug" = "${action}" ]; then
+}
+
+
+debug_c () {
   docker run --rm -it \
     --volumes-from ${logn} \
     --volumes-from ${cn} \
@@ -95,7 +110,9 @@ elif [ "debug" = "${action}" ]; then
     $dns \
     ${imgname} \
     /bin/bash
-elif [ "debugwithport" = "${action}" ]; then
+}
+
+debug_with_port () {
   docker run --rm -it \
     --volumes-from ${logn} \
     --volumes-from ${cn} \
@@ -107,13 +124,22 @@ elif [ "debugwithport" = "${action}" ]; then
     $dns \
     ${imgname} \
     /bin/bash
-elif [ "stop" = "${action}" ]; then
+}
+stop_c () {
   docker stop ${service_cn}
-elif [ "editconfig" = "${action}" ]; then
+}
+
+restart_c () {
+  stop_c
+  start_c
+}
+
+editconfig () {
   echo "please edit files in ${configpath} folder"
-#  sleep 5
   docker run --rm -it --volumes-from ${cn} ${imgname} /bin/bash
-elif [ "remove" = "${action}" ]; then
+}
+
+remove_c () {
   read -p "all cutomized data will lost, are you sure?" confirm
   case $confirm in
     Y|y)
@@ -131,12 +157,34 @@ elif [ "remove" = "${action}" ]; then
     *)
       echo "you answer is: ${confirm}";;
   esac
-elif [ "viewlog" = "${action}" ]; then
+}
+
+viewlog () {
   echo "please view log files in ${logpath} folder"
-#  sleep 5
   docker run --rm -it --volumes-from ${logn} ${imgname} /bin/bash
-else
-  echo "usage: --action=init,start,stop,debug,editconfig,viewlog"
-fi
+}
+
+case $action in
+  init)
+    init_c;;
+  start)
+    start_c;;
+  debug)
+    debug_c;;
+  debugwithport)
+    debug_with_port;;
+  stop)
+    stop_c;;
+  editconfig)
+    editconfig;;
+  remove)
+    remove_c;;
+  viewlog)
+    viewlog;;
+  restart)
+    restart_c;;
+  *)
+    echo "usage: --action=init,start,stop,restart,debug,editconfig,viewlog";;
+esac
 
 popd >/dev/null

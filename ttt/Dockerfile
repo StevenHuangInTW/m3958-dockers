@@ -12,7 +12,7 @@ RUN rm -rf /tmp/epel-release-6-8.noarch.rpm
 RUN yum -y install dnsmasq
 
 RUN yum -y install supervisor
-RUN mkdir /util
+
 RUN mkdir /m3958dir
 RUN mkdir -p /m3958dir/data
 RUN mkdir -p /m3958dir/config
@@ -27,8 +27,11 @@ RUN sed -i "s#;childlogdir.*#childlogdir=/var/log/supervisor/childlog#" /m3958di
 RUN echo "[program:dnsmasq]" >> /m3958dir/config/supervisord.conf
 RUN echo "command=/dnsmasq_run.sh" >> /m3958dir/config/supervisord.conf
 
-ADD util /util
-RUN chmod +x /util/*.sh
+
+#RUN mkdir /util
+#ADD util /util
+#RUN chmod +x /util/*.sh
+
 
 CMD ["/usr/bin/supervisord", "-c", "/m3958dir/config/supervisord.conf"]
 

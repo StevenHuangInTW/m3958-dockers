@@ -1,15 +1,22 @@
 #!/bin/bash
 
-#because m3958/base alreay put base_initrun.sh in /util/ folder.
+cfgf=/m3958dir/config/my.cnf
 
-/util/base_initrun.sh
-. /util/initfunctions.sh
+if [ ! -e /m3958dir/data/mysql ];then
+  mysql_install_db --defaults-file=$cfgf
+fi
 
-pn=mysql5
+mysql_safe --defaults-file=$cfgf >/dev/null 2>&1 &
 
-create_skeleton \
-  $pn \
-  /mysqld_run.sh \
-  /etc/my.cnf \
-  mysql
+RPASS=$(tr -dc A-Za-z0-9_ < /dev/urandom | head -c 8 | xargs)
 
+mysql_secure_installation <<YYYY
+
+Y
+$RPASS
+$PRASS
+Y
+Y
+Y
+Y
+YYYY

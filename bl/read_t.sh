@@ -21,3 +21,8 @@ multiread <<-FEED
  aaa
  bbb
 FEED
+
+multiread <<FEED
+ aaa
+ bbb
+FEED

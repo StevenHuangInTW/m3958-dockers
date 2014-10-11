@@ -9,7 +9,7 @@ if [ -z "$1" ]; then
 fi
 
 /bin/bash ../ctrl-containers.sh \
-  --action=$1 \
+  --action="$1" \
   --appname=appname \
   --logpath=/var/log/varnish \
   --servicename=varnish4 \
@@ -17,9 +17,9 @@ fi
   --dns=127.0.0.1 \
   --dns=223.5.5.5 \
   --dns=223.6.6.6 \
-  --p=80:80 \
-  --tty=true \
-  --p=222:22
+  -p 80:80 \
+  -t \
+  -p 222:22
 
 popd >/dev/null
 

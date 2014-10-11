@@ -26,7 +26,7 @@ act_nginx () {
  --logpath=/var/log/nginx \
  --servicename=nginx \
  --imgname=m3958/nginx \
- --p=8080:80 \
+ -p=8080:80 \
  --link=piwik-php-fpm-service:piwik-php-fpm-service \
  --volumes-from=$piwikvolname
 }

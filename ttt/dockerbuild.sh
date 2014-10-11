@@ -2,9 +2,8 @@
 
 curdir="$(dirname ${BASH_SOURCE[0]})"
 
-pushd $curdir >>/dev/null
-IMG_NAME="m3958/mysql:5.1.73"
+pushd $curdir >/dev/null
 
-docker build -t ${IMG_NAME} .
+docker build -t m3958/ttt .
 
 popd >/dev/null
