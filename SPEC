@@ -5,6 +5,7 @@
   /data
 
 2.all config copy from origin file, modify it in Dockerfile.
+
 3.a service container may has config-vol, data-vol, log-vol
 
 4. every service container use supervisord to start, default has dnsmasq started, you can read supervisord.conf.
@@ -16,4 +17,7 @@ log container: appname-servicename-log-vol
 config container: appname-servicename-config-vol
 
 6. web root path: /www/html
+
 7. container debug run, default map /opt/dockerdata into /hostdir, so you can exchange file between host and container.
+
+8. variable must use underscore, name use dash.

@@ -103,19 +103,19 @@ copy_commons () {
 copy_tocontainer () {
   copy_commons "runsshd.sh" "set_root_pw.sh"
 }
+
 #@params: appname, servicename
 sn_logn_cn () {
-  local px=""
   if [ -z "$1" ]; then
-    px="${2}-"
+    prefix="${2}-"
   else
-    px="${1}-${2}-"
+    prefix="${1}-${2}-"
   fi
 
-  local service_cn="${px}service"
-  local log_cn="${px}log-vol"
-  local c_cn="${px}config-vol"
-  local suplog_cn="${px}supervisor-log-vol"
-  local data_cn="${px}data-vol"
+  local service_cn="${prefix}service"
+  local log_cn="${prefix}log-vol"
+  local c_cn="${prefix}config-vol"
+  local suplog_cn="${prefix}supervisor-log-vol"
+  local data_cn="${prefix}data-vol"
   echo "${service_cn} ${log_cn} ${c_cn} ${suplog_cn} ${data_cn}"
 }

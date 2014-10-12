@@ -69,6 +69,8 @@ data_cn=${na[4]}
 
 configpath=/m3958dir/config
 
+echo "volume froms: ${volfroms}"
+
 datavolfrom=""
 if [ -n "$hasdatavol" ]; then
   datavolfrom="--volumes-from ${data_cn}"
@@ -105,9 +107,9 @@ start_c () {
         --volumes-from ${cn} \
         ${datavolfrom} \
         ${supvolfrom} \
-        $volfroms \
-        $dns \
-        $pmap \
+        ${volfroms} \
+        ${dns} \
+        ${pmap} \
         ${links} \
         --name ${service_cn} \
         ${imgname}
@@ -122,6 +124,7 @@ debug_c () {
     --volumes-from ${cn} \
     ${datavolfrom} \
     ${supvolfrom} \
+    ${volfroms} \
     -v /opt/dockerdata:/hostdir \
     ${links} \
     $dns \

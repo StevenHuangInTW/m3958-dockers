@@ -57,26 +57,26 @@ act_mysql () {
 
 case "$1" in
   editconfig)
-    echo "use edit_nginx_config or edit_phpfpm_config or edit_mysql_config";;
+    echo "use edit-nginx-config or edit-phpfpm-config or edit-mysql-config";;
   viewlog)
-    echo "use view_nginx_log or view_phpfpm_log or view_mysql_log";;
+    echo "use view-nginx-log or view-phpfpm-log or view-mysql-log";;
   debug)
-    echo "use debug_nginx or debug_phpfpm or debug_mysql";;
-  edit_nginx_config)
+    echo "use debug-nginx or debug-phpfpm or debug-mysql";;
+  edit-nginx-config)
     act_nginx editconfig;;
-  edit_phpfpm_config)
+  edit-phpfpm-config)
     act_phpfpm editconfig;;
-  edit_mysql_config)
+  edit-mysql-config)
     act_mysql editconfig;;
-  view_nginx_log)
+  view-nginx-log)
     act_nginx viewlog;;
-  view_phpfpm_log)
+  view-phpfpm-log)
     act_phpfpm viewlog;;
-  debug_nginx)
+  debug-nginx)
     act_nginx debug;;
-  debug_mysql)
+  debug-mysql)
     act_mysql debug;;
-  debug_phpfpm)
+  debug-phpfpm)
     act_phpfpm debug;;
   start-mysql)
     act_mysql "start";;
