@@ -2,10 +2,10 @@
 
 curdir="$(dirname ${BASH_SOURCE[0]})"
 
-pushd $curdir >>/dev/null
+pushd $curdir >/dev/null
 
-. "containerinfo"
+IMG_NAME="m3958/php-fpm"
 
 docker build -t ${IMG_NAME} .
 
-popd
+popd >/dev/null

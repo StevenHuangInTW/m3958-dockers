@@ -115,6 +115,7 @@ sn_logn_cn () {
   local service_cn="${px}service"
   local log_cn="${px}log-vol"
   local c_cn="${px}config-vol"
-  local suplog_cn="${px}-supervisor-log-vol"
-  echo "${service_cn} ${log_cn} ${c_cn} ${suplog_cn}"
+  local suplog_cn="${px}supervisor-log-vol"
+  local data_cn="${px}data-vol"
+  echo "${service_cn} ${log_cn} ${c_cn} ${suplog_cn} ${data_cn}"
 }

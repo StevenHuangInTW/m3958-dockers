@@ -5,7 +5,7 @@ pushd $curdir >/dev/null
 
 . functions
 
-MY_ARGS=$(getopt -o "p:t" -l "action:,appname:,imgname:,servicename:,logpath:,link:,volumes-from:,has-datavol:,dns:" -n "" -- "$@")
+MY_ARGS=$(getopt -o "p:" -l "action:,appname:,imgname:,servicename:,logpath:,link:,volumes-from:,has-datavol,dns:,has-supervisord-log" -n "" -- "$@")
 
 eval set -- "$MY_ARGS"
 
@@ -19,9 +19,8 @@ pmap=""
 links=""
 volfroms=""
 dns=""
-tty=""
 hasdatavol=""
-haslogvol=""
+hassupervisordlog=""
 
 while true; do
   case "$1" in
@@ -42,18 +41,19 @@ while true; do
     --volumes-from)
       shift;volfroms="${volfroms} --volumes-from $1 ";shift;;
     --has-datavol)
-      shift;hasdatavol="$1";shift;;
-    --has-logvol)
-      shift;haslogvol="$1";shift;;
+      shift;hasdatavol="yes";;
+    --has-supervisord-log)
+      shift;hassupervisordlog="yes";;
     --dns)
       shift;dns="${dns} --dns $1 ";shift;;
-    -t)
-      shift;tty="-t";;
     --)
        shift;break;;
   esac
 done
 
+if [ -n "${hassupervisordlog}" ];then
+  echo "hassupervisordlog: ${hassupervisordlog}"
+fi
 appname=${appname-appname}
 imgname=${imgname}
 
@@ -65,13 +65,30 @@ service_cn=${na[0]}
 logn=${na[1]}
 cn=${na[2]}
 supvisorlogcn=${na[3]}
+data_cn=${na[4]}
 
 configpath=/m3958dir/config
 
+datavolfrom=""
+if [ -n "$hasdatavol" ]; then
+  datavolfrom="--volumes-from ${data_cn}"
+fi
+supvolfrom=""
+if [ -n "${hassupervisordlog}" ]; then
+  supvolfrom="--volumes-from ${supvisorlogcn}"
+fi
 
 init_c () {
-  docker run -d -v ${logpath} --name ${logn}  ${imgname} echo ${logn}
-  docker run -d -v /var/log/supervisor  --name ${supvisorlogcn}  ${imgname} echo ${supvisorlogcn}
+  if [ -n "$logpath" ]; then
+    docker run -d -v ${logpath} --name ${logn}  ${imgname} echo ${logn}
+  fi
+  if [ -n "$hassupervisordlog" ];then
+    docker run -d -v /var/log/supervisor  --name ${supvisorlogcn}  ${imgname} echo ${supvisorlogcn}
+  fi
+  if [ -n "$hasdatavol" ]; then
+    echo "with data vol: ${data_cn}"
+    docker run -d -v /m3958dir/data  --name ${data_cn}  ${imgname} echo ${data_cn}
+  fi
   docker run -d -v ${configpath}  --name ${cn}  ${imgname} echo ${cn}
 }
 
@@ -86,9 +103,9 @@ start_c () {
       docker run -d \
         --volumes-from ${logn} \
         --volumes-from ${cn} \
-        --volumes-from ${supvisorlogcn} \
+        ${datavolfrom} \
+        ${supvolfrom} \
         $volfroms \
-        $tty \
         $dns \
         $pmap \
         ${links} \
@@ -103,24 +120,25 @@ debug_c () {
   docker run --rm -it \
     --volumes-from ${logn} \
     --volumes-from ${cn} \
-    --volumes-from ${supvisorlogcn} \
+    ${datavolfrom} \
+    ${supvolfrom} \
     -v /opt/dockerdata:/hostdir \
     ${links} \
-    $tty \
     $dns \
     ${imgname} \
     /bin/bash
 }
 
 debug_with_port () {
+
   docker run --rm -it \
     --volumes-from ${logn} \
     --volumes-from ${cn} \
-    --volumes-from ${supvisorlogcn} \
+    ${datavolfrom} \
+    ${supvolfrom} \
     -v /opt/dockerdata:/hostdir \
     $pmap \
     ${links} \
-    $tty \
     $dns \
     ${imgname} \
     /bin/bash
@@ -147,6 +165,7 @@ remove_c () {
       docker rm ${logn}
       docker rm ${cn}
       docker rm ${supvisorlogcn}
+      docker rm ${data_cn}
       if [ "yes" = $( container_running ${service_cn} ) ]; then
         docker stop ${service_cn}
       fi

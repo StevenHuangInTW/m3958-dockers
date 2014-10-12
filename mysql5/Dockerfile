@@ -14,4 +14,14 @@ RUN echo "command=/mysqld_run.sh" >> /m3958dir/config/supervisord.conf
 ADD mysqld_run.sh /
 RUN chmod +x /mysqld_run.sh
 
+ADD mysqld_initrun.sh /
+RUN chmod +x /mysqld_initrun.sh
+
+RUN /mysqld_initrun.sh
+
 EXPOSE 3306
+
+#debug into container
+#then /mysqld_run.sh
+#then mysql_secure_installation
+#then create user for use.

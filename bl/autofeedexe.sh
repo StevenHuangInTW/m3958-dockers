@@ -8,4 +8,18 @@ jlb
 43
 YYYY
 
+/bin/bash autofeed.sh <<YYYY
+
+
+YYYY
+
+name=hhh
+age=66
+
+/bin/bash autofeed.sh <<YYYY
+$name
+$age
+YYYY
+
+
 pushd >/dev/null

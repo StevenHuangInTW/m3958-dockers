@@ -25,12 +25,12 @@ RUN echo "# ip hostname" > /m3958dir/config/addn-hosts
 RUN echo "addn-hosts=/m3958dir/config/addn-hosts" >> /m3958dir/config/dnsmasq.conf
 RUN sed -i "s#;childlogdir.*#childlogdir=/var/log/supervisor/childlog#" /m3958dir/config/supervisord.conf
 RUN echo "[program:dnsmasq]" >> /m3958dir/config/supervisord.conf
-RUN echo "command=/dnsmasq_run.sh" >> /m3958dir/config/supervisord.conf
+RUN echo "command=/util/dnsmasq_run.sh" >> /m3958dir/config/supervisord.conf
 
 ADD util /util
 RUN chmod +x /util/*.sh
 
-CMD ["/usr/bin/supervisord", "-c", "/m3958dir/config/supervisord.conf"]
+CMD ["/usr/bin/supervisord", "-n", "-c", "/m3958dir/config/supervisord.conf"]
 
 # if you create volume here, you will not able to change content in it.
 # you must create a named data volume from this image, then share to others
