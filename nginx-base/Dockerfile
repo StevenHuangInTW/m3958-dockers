@@ -7,6 +7,7 @@ RUN yum -y install nginx
 
 RUN echo "[program:nginx]" >> /m3958dir/config/supervisord.conf
 RUN echo "command=/usr/sbin/nginx -c /m3958dir/config/nginx/nginx.conf" >> /m3958dir/config/supervisord.conf
+
 RUN mkdir -p /www
 RUN cp -R /usr/share/nginx/html /www/
 
@@ -17,6 +18,10 @@ RUN sed -i "s#/usr/share/nginx/html#/www/html#" /m3958dir/config/nginx/conf.d/de
 RUN sed -i "s#/etc/nginx#/m3958dir/config/nginx#" /m3958dir/config/nginx/nginx.conf
 
 RUN sed -i "3a daemon off;" /m3958dir/config/nginx/nginx.conf
+
+RUN sed -i "s/error_log.*/\/m3958dir\/log\/nginx\/log\/error.log warn;/" /m3958dir/config/nginx/nginx.conf
+
+RUN sed -i "s/access_log.*/\/m3958dir\/log\/nginx\/log\/access.log main;/" /m3958dir/config/nginx/nginx.conf
 
 EXPOSE 80
 

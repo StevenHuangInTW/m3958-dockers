@@ -11,13 +11,24 @@
 4. every service container use supervisord to start, default has dnsmasq started, you can read supervisord.conf.
 
 5. container name conventions. 
-service container: appname-servicename-service, for example: piwik-nginx-service
-data container: appname-servicename-data-vol
-log container: appname-servicename-log-vol
-config container: appname-servicename-config-vol
+service container: appname-servicename-service-instanceid, for example: piwik-nginx-service
+data container: appname-servicename-data-vol-instanceid
+log container: appname-servicename-log-vol-instanceid
+config container: appname-servicename-config-vol-instanceid
+supervisord log container: appname-servicename-supervisord-log-vol-instanceid
 
-6. web root path: /www/html
+7. host name:
+appname-servicename-hn-instanceid
 
-7. container debug run, default map /opt/dockerdata into /hostdir, so you can exchange file between host and container.
+8. web root path: /www/html
 
-8. variable must use underscore, name use dash.
+9. container debug run, default map /opt/dockerdata into /hostdir, so you can exchange file between host and container.
+
+10. variable must use underscore, name use dash.
+11. start app sequence
+a. prepare
+  1.create all volumes for container.
+  2.modify volumes content
+b. start container.
+
+

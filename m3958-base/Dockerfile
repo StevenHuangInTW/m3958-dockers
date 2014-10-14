@@ -16,14 +16,17 @@ RUN mkdir /util
 RUN mkdir /m3958dir
 RUN mkdir -p /m3958dir/data
 RUN mkdir -p /m3958dir/config
-RUN mkdir -p /var/log/supervisor/childlog
+RUN mkdir -p /m3958dir/log
+RUN mkdir -p /m3958dir/supvervisordlog/childlog
 
 RUN cp /etc/dnsmasq.conf /m3958dir/config/
 RUN cp /etc/supervisord.conf /m3958dir/config/
 RUN echo "# ip hostname" > /m3958dir/config/addn-hosts
 
 RUN echo "addn-hosts=/m3958dir/config/addn-hosts" >> /m3958dir/config/dnsmasq.conf
-RUN sed -i "s#;childlogdir.*#childlogdir=/var/log/supervisor/childlog#" /m3958dir/config/supervisord.conf
+RUN sed -i "s#;childlogdir.*#childlogdir=/m3958dir/supervisordlog/childlog#" /m3958dir/config/supervisord.conf
+
+
 RUN echo "[program:dnsmasq]" >> /m3958dir/config/supervisord.conf
 RUN echo "command=/util/dnsmasq_run.sh" >> /m3958dir/config/supervisord.conf
 
@@ -31,6 +34,13 @@ ADD util /util
 RUN chmod +x /util/*.sh
 
 CMD ["/usr/bin/supervisord", "-n", "-c", "/m3958dir/config/supervisord.conf"]
+
+RUN yum -y install perl perl-ExtUtils-MakeMaker perl-ExtUtils-Install perl-ExtUtils-Manifest perl-ExtUtils-ParseXS perl-ExtUtils-CBuilder perl-ExtUtils-Embed gcc
+
+RUN curl -L http://cpanmin.us | perl - App::cpanminus
+
+RUN cpanm Getopt::Long JSON Data::UUID
+RUN cpanm Catalyst::Devel
 
 # if you create volume here, you will not able to change content in it.
 # you must create a named data volume from this image, then share to others
