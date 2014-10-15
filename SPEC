@@ -3,19 +3,17 @@
 /m3958dir
   /config
   /data
+  /log
 
 2.all config copy from origin file, modify it in Dockerfile.
 
-3.a service container may has config-vol, data-vol, log-vol
+3.a service container must has an service-vol
 
 4. every service container use supervisord to start, default has dnsmasq started, you can read supervisord.conf.
 
-5. container name conventions. 
-service container: appname-servicename-service-instanceid, for example: piwik-nginx-service
-data container: appname-servicename-data-vol-instanceid
-log container: appname-servicename-log-vol-instanceid
-config container: appname-servicename-config-vol-instanceid
-supervisord log container: appname-servicename-supervisord-log-vol-instanceid
+5. every container has an uniquename, it's name also use as hostname.
+
+6.container type: service, service-vol, web-vol, when create service container, ask user for create service-vol. when create service container, it must has volumes-from
 
 7. host name:
 appname-servicename-hn-instanceid
