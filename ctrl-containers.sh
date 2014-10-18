@@ -206,7 +206,7 @@ case $action in
   restart)
     restart_c;;
   *)
-    echo "usage: --action=init,start,stop,restart,debug,editconfig,viewlog";;
+    echo "usage: runcontainer.sh action=init,start,stop,restart,debug,editconfig,viewlog";;
 esac
 
 popd >/dev/null
